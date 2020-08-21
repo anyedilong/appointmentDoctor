@@ -1,0 +1,178 @@
+<!--预约挂号首页 appointment-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <link rel="stylesheet" href="../css/page/appointment.css">
+    <!--<link rel="stylesheet" href="../css/page/index.css">-->
+    <style>
+        .docCard-box, .docCard-pic , .mes_left_active , .bg_left_active , .mes_left_active , .select_container{
+            behavior: url(../js/PIE/PIE.htc);
+            position: relative;
+        }
+        .doc-shanchang {
+            line-height: 1.2em;
+            height: 2.4em;
+            overflow: hidden;
+        }
+        .shanc{
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-row bg_content container font_m main_body showLoading">
+        <div class="layui-col-md-offset2 layui-col-md8">
+            <p class="body-title c_grey">健康信息服务平台/预约挂号</p>
+            <div class="select_container">
+                <div class="fl bg_left">
+                    <p class="findHospital active">找医院</p>
+                    <p class="findDoctor">找医生</p>
+                </div>
+                <div class="fl bg_f">
+                    <ul class="right_content getHospital isShow">
+                        <li class="label_container">
+                            <div class="fl label_one text_r">
+                                <span class="label">所在区域：</span>
+                            </div>
+                            <div class="fl label_two" id="areaList">
+                                <span class="bg_left_active label select_label">全部</span>
+                                <!--<span class="label select_label">某某区</span>-->
+                            </div>
+                            <div class="fr label_one toMore">
+                                <span class="label blue bg_more">展开全部</span>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                        <li class="label_container">
+                            <div class="fl label_one text_r">
+                                <span class="label">医院类型：</span>
+                            </div>
+                            <div class="fl label_two" id="hosType">
+                                <span class="bg_left_active label select_label">全部</span>
+                                <!--<span class="label select_label">眼科医院</span>-->
+                                <!--<span class="label select_label">肛肠医院</span>-->
+                            </div>
+                            <div class="fr label_one toMore">
+                                <span class="label blue bg_more">展开全部</span>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                        <li class="label_container">
+                            <div class="fl label_one text_r">
+                                <span class="label">医院科室：</span>
+                            </div>
+                            <div class="fl label_two" id="hosSection">
+                                <span class="bg_left_active label select_label">全部</span>
+                                <!--<span class="label select_label">内科</span>-->
+                            </div>
+                            <div class="fr label_one toMore">
+                                <span class="label blue bg_more">展开全部</span>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                    </ul>
+                    <ul class="right_content getFind">
+                        <li class="label_container_ys">
+                            <div class="fl label_one text_r">
+                                <span class="label">所在科室：</span>
+                            </div>
+                            <div class="fl label_two" id="docSection">
+                                <span class="bg_left_active label select_label">全部</span>
+                                <!--<span class="label select_label">某某区</span>-->
+                            </div>
+                            <div class="fr label_one toMoreYs">
+                                <span class="label blue bg_more">展开全部</span>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                        <!--<li class="label_container">-->
+                            <!--<div class="fl label_one text_r">-->
+                                <!--<span class="label">疾病类型：</span>-->
+                            <!--</div>-->
+                            <!--<div class="fl label_two">-->
+                                <!--<span class="bg_left_active label select_label">全部</span>-->
+                                <!--&lt;!&ndash;<span class="label select_label">某某区</span>&ndash;&gt;-->
+                            <!--</div>-->
+                            <!--<div class="fr label_one toMore">-->
+                                <!--<span class="label blue bg_more">展开全部</span>-->
+                            <!--</div>-->
+                            <!--<div class="clear"></div>-->
+                        <!--</li>-->
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="message_bd">
+                <div class="message_list hospital_s isShow">
+                    <!--<ul class="messagea_s">-->
+                        <!--<li class="fl mes_left_active">全部医院</li>-->
+                        <!--<li class="fl">仅限有号</li>-->
+                        <!--<li class="clear remove_c"></li>-->
+                    <!--</ul>-->
+                    <div class="body-card layui-row layui-col-space20 toHospital">
+                        <div class="hospital-card layui-col-md3">
+                            <div class="hosCard-box">
+                                <div class="hosCard-pic">
+                                    <div class="hos-tag">三级甲等</div>
+                                    <img src="../img/hospital.png" alt="">
+                                </div>
+                                <div class="hosCard-info">
+                                    <div class="hosCard-name">
+                                        <span>某某区人民医院</span>
+                                        <div class="tel-box">
+                                            <!--<img src="../img/icon_tel.png" alt="">-->
+                                            <i class="iconfamily">&#xe63a;</i>
+                                            <div class="tel-txt">0531-99998869</div>
+                                        </div>
+                                    </div>
+                                    <div class="hosCard-addr">
+                                        <i class="iconfamily">&#xe61e;</i>
+                                        某某区通泉镇龙泉北路54号
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="demo7"></div>
+                </div>
+                <div class="message_list doctor_s">
+                    <!--<ul class="messagea_s">-->
+                        <!--<li class="fl mes_left_active">全部医生</li>-->
+                        <!--<li class="fl">仅限有号</li>-->
+                        <!--<li class="clear remove_c"></li>-->
+                    <!--</ul>-->
+                    <div class="body-card layui-row layui-col-space20 toDoctor">
+                        <!--<div class="doctor-card layui-col-md4">-->
+                            <!--<div class="docCard-box">-->
+                                <!--<div class="docCard-pic">-->
+                                    <!--<img src="../img/doctor.png" alt="">-->
+                                <!--</div>-->
+                                <!--<div class="docCard-info">-->
+                                    <!--<div class="doc-name">-->
+                                        <!--<span>张医生</span>-->
+                                        <!--<span>主任医师</span>-->
+                                        <!--<span>教授</span>-->
+                                    <!--</div>-->
+                                    <!--<div class="doc-hospital">-->
+                                        <!--马龙区人民医院   儿童消化内科-->
+                                    <!--</div>-->
+                                    <!--<div>-->
+                                        <!--擅长：小二呼吸系统、消化系统、积食、 发烧...-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="clear"></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                    <div id="demo8"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script src="../js/page/appointment.js"></script>
+</html>

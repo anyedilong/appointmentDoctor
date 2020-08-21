@@ -1,0 +1,234 @@
+<!--预约挂号医院详细 appointmentDoctor-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <link rel="stylesheet" href="../css/page/personalCenter.css">
+    <style>
+        .hospital_tag, .form-btn button, .patient_list li{
+            behavior: url(../js/PIE/PIE.htc);
+            position: relative;
+        }
+        .attended_tab .layui-tab-title{
+            border: none;
+            margin-bottom: 15px;
+            margin-left: 15px;
+            display: inline-block;
+        }
+        .attended_tab .layui-tab-title li{
+            border-radius:20px;
+            width: 94px;
+        }
+        .attended_tab .layui-tab-title .layui-this{
+            background: #3A86F3;
+            color: #fff;
+        }
+        .attended_tab .layui-tab-title .layui-this:after{
+            border-bottom: none;
+        }
+        .shanchang{
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            max-height: 32px;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-row bg_content container font_m main_body showLoading">
+        <div class="layui-col-md-offset2 layui-col-md8">
+            <p class="body-title c_grey">健康信息服务平台/个人中心</p>
+            <div class="layui-row hos_container">
+                <div class="layui-col-md3 content_left">
+                    <div class="hospital_name bd_r personal_left">
+                        <div id="logined" style="height: auto;"></div>
+                        <div id="noLogin">
+                            <div style="height: auto;">
+                                <img src="../img/moren.png" alt="">
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <span class="hospital_tag cursorP" style="background: #FBC47D;" id="goLogin">去登录</span>
+                            </div>
+                        </div>
+                        <ul class="personal_list">
+                            <li><a href="changePhone.html">更换手机号</a></li>
+                            <li><a href="changePassword.html">修改密码</a></li>
+                            <li><a href="personContacts.html">常用联系人</a></li>
+                            <li><a href="myAppointment.html">我的预约</a></li>
+                            <li class="personal_selected"><a href="attendedDoctor.html">已关注医生</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="layui-col-md9 content_right bd_r personal_right">
+<!--                    <div class="b_grey" id="loginTip">请先登录才能进行相关操作</div>-->
+                    <div id="personalRight">
+                        <div class="body-card layui-row layui-col-space20" id="attendedAll">
+                            <!--                                    <div class="doctor-card layui-col-md6">-->
+                            <!--                                        <div class="docCard-box">-->
+                            <!--                                            <div class="docCard-pic">-->
+                            <!--                                                <img src="../img/doctor.png" alt="">-->
+                            <!--                                            </div>-->
+                            <!--                                            <div class="docCard-info">-->
+                            <!--                                                <div class="doc-name">-->
+                            <!--                                                    <span>张医生</span>-->
+                            <!--                                                    <span>主任医师</span>-->
+                            <!--                                                    <span>教授</span>-->
+                            <!--                                                </div>-->
+                            <!--                                                <div class="doc-hospital">-->
+                            <!--                                                    马龙区人民医院   儿童消化内科-->
+                            <!--                                                </div>-->
+                            <!--                                                <div>-->
+                            <!--                                                    擅长：小二呼吸系统、消化系统、积食、 发烧...-->
+                            <!--                                                </div>-->
+                            <!--                                            </div>-->
+                            <!--                                            <div class="clear"></div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script>
+    $(function () {
+        layui.use('layer', function(){
+            var layer = layui.layer;
+           layui.layer.load();
+
+           var authToken = localStorage.getItem('authToken');
+        // 已关注全部医生列表
+        getAttendedList();
+        function getAttendedList() {
+            var jsonParam = {
+                authToken: authToken
+            };
+            $.ajax({
+                type: 'get',
+                dataType: "jsonp",
+                jsonp: "callback",//服务端用于接收
+                async: false,
+                contentType: 'application/json',
+                url: roadPath + '/reg/subscribe/getFollowDoctorInfo',
+                data: jsonParam,
+                success: function (resultMsg) {
+                   layui.layer.closeAll()
+                   $(".showLoading").css("opacity", '1')
+                    if(resultMsg.retCode == 0) {
+                        var html = "";
+                        if(!resultMsg.data){
+                            $('#attendedAll').html('<div class="noData b_grey" style="text-align: center;margin-top: 30px;">暂无关注医生</div>')
+                        }else{
+                            var dataList = resultMsg.data;
+                            $.each(dataList, function (i, item) {
+                                // if (item.addressDetail.length > 13) {
+                                //     item.addressDetail = item.addressDetail.substring(0,13) + '...';
+                                // } else {
+                                //     item.addressDetail = item.addressDetail;
+                                // }
+                                var ketarr = ['id', 'imageUrl', 'name', 'professional' ,'hospitalName', 'deptName', 'depict'];
+                                for (var p = 0; p < ketarr.length; p++) {
+                                    if (item[ketarr[p]] == undefined) {
+                                        item[ketarr[p]] = '';
+                                    }
+                                }
+                                html +=
+                                    '<div class="doctor-card layui-col-md6" data-ids="'+item.id+'">'+
+                                    '<div class="docCard-box">'+
+                                    '<div class="docCard-pic">'+
+                                    '<img src="'+item.imageUrl+'" alt="">'+
+                                    '</div>'+
+                                    '<div class="docCard-info">'+
+                                    '<div class="doc-name">'+
+                                    '<span>'+item.name+'</span>&emsp;'+
+                                    '<span>'+item.professional+'</span>'+
+                                    '</div>'+
+                                    '<div class="doc-hospital">'+item.hospitalName+'&emsp;'+item.deptName+'</div>'+
+                                    '<div class="shanchang">擅长：'+item.depict+'</div>'+
+                                    '</div>'+
+                                    '<div class="clear"></div>'+
+                                    '</div>'+
+                                    '</div>';
+                            });
+                            $("#attendedAll").html(html);
+                        }
+
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                   layui.layer.closeAll()
+                   $(".showLoading").css("opacity", '1')
+                    alert('加载资源失败');
+                }
+            });
+        }
+        $('#attendedAll').on('click','.doctor-card',function () {
+            var doctorId = $(this).attr("data-ids");
+            localStorage.setItem("doctorId",doctorId);
+            window.location.href = "appDoctor.html";
+        });
+        verifyLogin();
+        function verifyLogin () {
+            var jsonParam = {
+                // 无参数，通过登录的tocken
+                authToken: authToken
+            };
+            $.ajax({
+                type: 'get',
+                dataType: "jsonp",
+                jsonp: "callback",//服务端用于接收
+                async: false,
+                contentType: 'application/json',
+                url: roadPath +  '/reg/user/getUserInfo',
+                data: jsonParam,
+                success: function (resultMsg) {
+                    if (resultMsg.retCode == 0) {
+                        $('#logined').show();
+                        $('#noLogin').hide();
+                        $('#personalRight').show();
+                        // $('#loginTip').hide();
+                        var html='';
+                        html+='<div>'+
+                            '<img src="../img/moren_doctor.png" alt="">'+
+                            '</div>'+
+                            '<div class="mar_t font_e">'+resultMsg.data.username+'</div>'+
+                            '<div style="margin-top: 20px;">'+
+                            '<span class="hospital_tag cursorP" style="background: #FBC47D;" id="tuichu">退出</span>'+
+                            '</div>';
+                        $('#logined').html(html)
+                    } else if (resultMsg.retCode == 1004) {
+                        $('#noLogin').show();
+                        denglu();
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                    alert('加载资源失败');
+                }
+            });
+        }
+        $('#logined').on('click','#tuichu',function () {
+            var index = layer.confirm('确定退出？', {
+                title: '提示',
+                skin: 'layui-layer-login',
+                btn: ['确定','取消'], //按钮
+                fixed:false,
+                top:10
+            }, function(){
+                localStorage.clear();
+                layer.close(index);
+                window.location.href = 'index.html';
+            })
+        });
+            })
+    })
+</script>
+</html>

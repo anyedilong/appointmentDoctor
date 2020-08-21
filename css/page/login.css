@@ -1,0 +1,143 @@
+.head-btn {
+    height: 44px;
+    line-height: 44px;
+    padding: 0 20px;
+    font-size: 16px;
+}
+.head-btn i {
+    cursor: pointer;
+}
+.left-back {
+    display: none;
+}
+.right-close:hover {
+    color: #3A86F3;
+}
+/*手机号密码登录*/
+.loginBox {
+    text-align: center;
+    color: #CCCCCC;
+    font-size: 14px;
+    display: none;
+}
+.top-tit {
+    color: #3A86F3;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.top-remark {
+    width: 100%;
+    height: 20px;
+    position: relative;
+}
+.line-bg {
+    width: 90%;
+    position: absolute;
+    top: 50%; left: 5%;
+    border-bottom: 1px solid #EDEDED;
+    z-index: -1;
+}
+.top-remark-txt {
+    background: #fff;
+    display: inline-block;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+.login-form {
+    padding: 40px 40px 0;
+}
+.layui-input{
+    border-color: #EAF2FE;
+}
+.layui-form-item {
+    margin-bottom: 20px;
+}
+.my-checkbox {
+    height: 32px;
+    line-height: 32px;
+    cursor: pointer;
+}
+.checkdiv {
+    display: none;
+}
+.my-checked {
+    display: block !important;
+}
+.my-checkbox .my-label{
+    float: left;
+}
+.my-checkbox i{
+    float: left;
+    font-size: 20px;
+    color: #EAF2FE;
+    margin-right: 10px;
+}
+.checkdiv2, .checkdiv2 i{
+    color: #3A86F3
+}
+.forget-btn {
+    line-height: 32px;
+    cursor: pointer;
+}
+.forget-btn:hover {
+    color: #3A86F3;
+}
+.form-btn {
+    width: 240px;
+}
+.form-btn button {
+    width: 100%;
+}
+.other-way {
+    width: 240px;
+    margin: 0 auto;
+    line-height: 32px;
+}
+.other-way>div {
+    cursor: pointer;
+}
+.other-way i {
+    font-size: 28px;
+    margin-right: 10px;
+}
+.other-way i, .other-way span {
+    float: left;
+}
+.register {
+    cursor: pointer;
+}
+.duanxin i {
+    color: #FD9F26;
+}
+.weixin i {
+    color: #2BC807;
+}
+.liji-register, .liji-login {
+    cursor: pointer;
+}
+.yanzeng-inp {
+    width: 77%;
+}
+.yanzheng-btn {
+    width: 25%;
+    margin-left: -2%;
+    line-height: 38px;
+    background: #3A86F3;
+    color: #FFFFFF;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.erweima {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background: lightblue;
+}
+.erweima-txt {
+    margin-top: 14px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 14px;
+    color: #323231;
+}

@@ -1,0 +1,172 @@
+/*步骤条*/
+.steps{
+    margin-top: 20px;
+}
+.steps:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+/*步骤描述*/
+.steps li {
+    list-style-type: none;
+    font-size: 12px;
+    text-align: center;
+    width: 33%;
+    position: relative;
+    float: left;
+}
+/*步骤数字*/
+.steps li:before{
+    content: url("../../img/bluecircle.png");
+    position: relative;
+    top: 40px;
+    left: 38px;
+    z-index: 1;
+}
+.steps li{
+    color: #3A86F3;
+}
+/*连接线*/
+.steps li ~ li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: #3A86F3;
+    position: absolute;
+    left: -45%;
+    top: 55px;
+}
+/*将当前/完成步骤之前的数字及连接线变绿*/
+.steps li.active:before{
+    content: url("../../img/bluecircle.png");
+}
+.steps li.active:after {
+    background-color: #3A86F3;
+}
+/*将当前/完成步骤之后的数字及连接线变灰*/
+.steps li.active ~ li{
+    color: #757575;
+}
+.steps li.active ~ li:before{
+    content: url("../../img/greatcircle.png");
+}
+.steps li.active ~ li:after {
+    background-color: #F5F5F5;
+}
+.steps li:last-child:before{
+    left: 30px;
+}
+.step_content{
+    width: 75%;
+    margin: 0 auto
+}
+.telephone{
+    margin-top: 120px;
+    color: #757575;
+}
+#count{
+    display: none;
+}
+.send_code{
+    margin-top: 30px;
+}
+.send_code .layui-input-inline{
+    float: left;
+}
+.send_code .layui-input{
+    width: 300px;
+    height: 44px;
+    border-radius: 0;
+}
+.send_code .layui-btn{
+    width: 120px;
+    border-radius: 0;
+    background: #3A86F3;
+    font-size: 14px;
+    float: left;
+    margin-left: 0;
+    padding: 0;
+}
+.send_code .layui-btn-primary{
+    background: #ebebeb;
+    border: none;
+    opacity: 1;
+}
+.send_code .layui-btn-primary:hover{
+    background: #ebebeb;
+}
+#step2{
+    display: none;
+}
+#step3{
+    display: none;
+}
+.newPhone_input{
+    width:434px;
+    height:44px;
+    margin-top: 120px;
+}
+.password_input{
+    width:434px;
+    height:44px;
+}
+/*滑块验证*/
+.ui-slider-wrap {
+    background: #e8e8e8;
+    position: relative;
+}
+
+.ui-slider-wrap .ui-slider-bg {
+    width: 0;
+}
+
+.ui-slider-wrap .ui-slider-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: move;
+    text-align: center;
+    border: 1px solid #EAF2FE;
+    background: #fff;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.ui-slider-wrap .ui-slider-btn {
+    width: 44px !important;
+    background: #fff url(../../img/rightArrow.png) no-repeat center;
+    background-size: 20px 20px;
+}
+.ui-slider-wrap .ui-slider-btn:after{
+    content: ''
+}
+.ui-slider-wrap .ui-slider-btn.success {
+    /*请替换图片地址*/
+    background-image: url(../../img/duihao.png);
+}
+
+.ui-slider-wrap .ui-slider-text {
+    width: 100%;
+    height: 100%;
+    font-family: "微软雅黑";
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #666;
+}
+
+.ui-slider-wrap .ui-slider-no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+.personal_tel{
+    margin-top: 120px;
+}

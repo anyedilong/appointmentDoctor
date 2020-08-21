@@ -1,0 +1,365 @@
+/*ui图整体宽度1920px*/
+/*内容宽度占1200px，62.5%*/
+/*>1200 ld8 <1200 md8*/
+.fl {float: left;}
+.fr {float: right;}
+.clear {clear: both}
+.cursorP {
+    cursor: pointer;
+}
+.bg_content{background:#F5F5F5;}
+/*字体颜色*/
+.blue {color: #5DA2F9;}
+.c_grey{color:#CCCCCC;}
+.b_grey{color:#B3B3B3;}
+.q_grey{color:#757575;}
+.j_grey{color:#999999;}
+.main_body{color:#323231;}
+.yellow_s{color:#FACD89;}
+/*字体大小*/
+.font_m{font-size: 14px;}
+.font_s{font-size: 12px;}
+.font_l{font-size: 16px;}
+.font_e{font-size: 18px !important;}
+/*layui*/
+.layui-form-select dl dd.layui-this {
+    background-color: #3A86F3;
+    color: #fff;
+}
+/*icon样式*/
+.iconStyle{
+    color: #5ACCFF;
+    font-size: 12px !important;
+    margin-right: 2px;
+}
+/*边框圆角*/
+.bd_r{border-radius: 4px;}
+.cardTit {
+    color: #1F73EB;
+    border-bottom: 1px solid #EDEDED;
+    margin: 15px 0 30px;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+}
+.cardTit > .cardTit-tit {
+    display: inline-block;
+    height: 100%;
+    padding: 0 37px 0 20px;
+    border-bottom: 1px solid #1F73EB;
+}
+.cardTit-more {
+    font-size: 14px;
+    color: #757575;
+    cursor: pointer;
+}
+.cardTit-more > img {
+    width: 14px;
+    height: 14px;
+    margin-left: 10px;
+}
+/*推荐医院*/
+.hosCard-box {
+    cursor: pointer;
+}
+.hosCard-box:hover .hosCard-info {
+    border-color: #5DA2F9;
+}
+.hosCard-pic {
+    background: lavenderblush;
+    height: 170px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.hosCard-pic > img {
+    height: 100%;
+    width: 100%;
+}
+.hos-tag {
+    position: absolute;
+    background: #FDA028;
+    color: #FFFFFF;
+    top: 10px;
+    right: 10px;
+    padding: 3px 10px;
+}
+.hosCard-info {
+    border: 1px solid #EDEDED;
+    border-top: none;
+    padding: 10px;
+}
+.hosCard-name {
+    font-size: 16px;
+    color: #323231;
+    margin-bottom: 5px;
+}
+.tel-box {
+    float: right;
+    cursor: pointer;
+    position: relative;
+}
+.tel-txt {
+    white-space: nowrap;
+    position: absolute;
+    top: 28px;
+    background: #ffffff;
+    line-height: 35px;
+    height: 35px;
+    z-index: 10;
+    color: #757575;
+    font-size: 12px;
+    padding: 0 8px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    display: none;
+}
+.tel-box > i {
+    font-size: 24px;
+    color: #15B7FF;
+}
+.tel-box > img {
+    width: 18px;
+    height: 18px;
+}
+.hosCard-addr {
+    font-size: 12px;
+    color: #999999;
+}
+.hosCard-addr i {
+    color: #CCCCCC;
+}
+/*推荐医生 + 健康科普*/
+.docCard-box {
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #ffffff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.docCard-box:hover {
+    border-color: #5DA2F9;
+}
+.docCard-pic {
+    background: lavenderblush;
+    width: 28%;
+    padding-top: 28%;
+    overflow: hidden;
+    float: left;
+    margin-right: 2%;
+    position: relative;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.docCard-pic > img {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+.docCard-info {
+    width: 70%;
+    float: left;
+    word-wrap:break-word;
+    color: #B3B3B3;
+    font-size: 12px;
+}
+.doc-name>span:nth-child(1){
+    color: #323231;
+    font-size: 16px;
+}
+.doc-hospital {
+    color: #323231;
+    margin: 5px 0;
+}
+.health-info {
+    width: 70%;
+    padding-top: 28%;
+    float: left;
+    word-wrap:break-word;
+    color: #B3B3B3;
+    font-size: 12px;
+    position: relative;
+}
+.health-tit {
+    position: absolute;
+    color: #323231;
+    font-size: 14px;
+    top: 0px;
+    line-height: 1.2em;
+    height: 2.4em;
+    /*display: -webkit-box;*/
+    /*-webkit-box-orient: vertical;*/
+    /*-webkit-line-clamp: 2;*/
+    overflow: hidden;
+}
+.health-from {
+    position: absolute;
+    bottom: 8px;
+}
+/*预约挂号左侧*/
+.body-title{
+    padding: 20px 0;
+}
+.hos_container{
+    padding-bottom: 30px;
+}
+.content_left{
+    padding-right: 20px;
+}
+.hospital_name{
+    text-align: center;
+    background: #fff;
+    padding: 30px 20px;
+    /*cursor: pointer;*/
+}
+.hospital_name div:first-child{
+    height: 100px;
+    margin: 0 auto;
+}
+.hospital_name img{
+    height: 100%;
+}
+.mar_t{
+    margin-top: 10px;
+}
+.hospital_tag{
+    background: #FDA028;
+    color: #FFFFFF;
+    padding: 3px 10px;
+    border-radius: 4px;
+}
+.hos_num{
+    /*cursor: pointer;*/
+    margin-bottom: 20px;
+}
+.hos_num li{
+    width: 50%;
+    padding: 10px 0;
+    text-align: center;
+    background: #EDEDED;
+}
+.hos_introduce{
+    padding: 20px;
+    background: #fff;
+}
+.hei_clear{
+    padding: 0 !important;
+}
+.intro_d{
+    line-height: 18px;
+    margin-top: 8px;
+}
+.contact_us{
+    padding: 20px; margin-top: 20px;background: #fff;
+}
+.contact_li li{
+    margin-top: 8px;
+}
+/*.contact_li li i{*/
+    /*float: left;*/
+    /*display: inline-block;*/
+/*}*/
+/*.contact_li li div{*/
+    /*float: left;*/
+    /*display: inline-block;*/
+/*}*/
+.content_right{
+    background: #fff;
+    padding: 20px;
+}
+.content_tag{
+    padding: 0 20px;
+}
+.label{
+    display: inline-block;
+    margin: 5px;
+    padding: 6px 9px;
+}
+.select_label{
+    border: 1px solid rgba(245,245,245,1);
+    cursor: pointer;
+}
+.bg_left_active{
+    background: #3A86F3;
+    border-radius: 4px;
+    color:#fff;
+}
+.label_dep{
+    padding: 0 15px;
+}
+.more_r , .more_r:hover{
+    color:#4F96FC;
+}
+
+/*首页及个页面橘黄色按钮*/
+.form-btn {
+    margin: 0 auto;
+}
+.form-btn button {
+    width: 200px;
+    margin: 0 auto;
+    display: block;
+    background: #FDA027;
+    -webkit-border-radius: 19px;
+    -moz-border-radius: 19px;
+    border-radius: 19px;
+    /*Old gradient for webkit*/
+    background: -webkit-gradient(linear, left 50%, right 50%, from(#FDA027),to(#FC9B1F));
+    /*new gradient for Webkit*/
+    background:-webkit-linear-gradient(left,#FDA027,#FC9B1F);
+    /*Opera11*/
+    background:-o-linear-gradient(left,#FDA027,#FC9B1F);
+    /*Mozilla*/
+    background:-moz-linear-gradient(left,#FDA027,#FC9B1F);
+    /*IE10+*/
+    background: linear-gradient(to right, #FDA027 0%,#FC9B1F 100%);
+    /*IE8-IE9*/
+    /*加滤镜后圆角失效，加外壳overflow:hidden失效，IE8渐变暂时去掉 不加滤镜也失效*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FDA027', endColorstr='#FC9B1F',GradientType=1 );*/
+}
+.form-btn img{
+    margin: 0 auto;
+    display: block;
+    height: 70px;
+    width: auto;
+}
+/*个人中心左侧导航栏*/
+.personal_list{
+    padding-top: 35px;
+    background: #fff;
+}
+.personal_list li a{
+    display: inline-block;
+    width: 100%;
+    line-height: 44px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.personal_list li a:hover{
+    background: #3A86F3;
+    color: #fff;
+}
+.personal_list li.personal_selected a{
+    background: #3A86F3;
+    color: #fff;
+}
+.personal_right{
+    min-height: 800px;
+}
+.personal_left{
+    height: 740px;
+}
+#logined,#noLogin{
+    display: none;
+}
+#personalRight{
+    display: none;
+}
+.showLoading{
+    opacity: 0.1;
+}

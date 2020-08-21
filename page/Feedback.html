@@ -1,0 +1,180 @@
+<!--意见反馈-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <link rel="stylesheet" href="../css/page/index.css">
+    <style>
+        .bodyBanner-form, .form-btn button, .docCard-box, .docCard-pic ,.bd_r{
+            behavior: url(../js/PIE/PIE.htc);
+            position: relative;
+        }
+        .aboutus-banner{
+            background: url("../img/contentbanner.png") no-repeat top center;
+            width: 100%;
+            height: 450px;
+            margin-bottom: 30px;
+           background-size: 100% 100%;
+        }
+        .content_right{
+            background: #fff;
+            height: 600px;
+        }
+        .left_box {
+            height: 580px;
+            background: #FFFFFF;
+        }
+        .content_right{
+            padding: 34px;
+        }
+        .left_box{
+            padding-top: 20px;
+        }
+        .left_box>div , .feed_back>div{
+           height: 44px;line-height: 44px;
+            text-align: center;
+        }
+        .active{
+            background: #3A86F3;
+        }
+        .active a{
+            color: #fff;
+        }
+        .title{
+            margin-bottom: 30px;
+        }
+        .form-btn{
+            margin-top: 60px;
+        }
+        .content_box{
+            width: 60%;
+        }
+        .layui-input, .layui-textarea{
+            border-color: #EAF2FE !important;
+        }
+        .layui-textarea{
+            resize:none
+        }
+        /*layui*/
+        .layui-form-label {
+            width: 90px;
+            color: #323231;
+        }
+        .layui-input-block {
+            margin-left: 120px;
+            position: relative;
+        }
+        .bitian{
+            position: absolute;
+            top: 0; right: -15px;
+            color: #FF5722;
+        }
+    </style>
+</head>
+<body>
+<div class="body-box bg_content showLoading">
+    <div class="aboutus-banner"></div>
+    <div class="body-con layui-row q_grey font_m">
+        <div class="bodyCon-inner layui-col-md-offset2 layui-col-md8">
+            <div class="layui-row hos_container">
+                <div class="layui-col-md3 content_left">
+                    <div class="left_box bd_r">
+                        <div><a href="contactUs.html" class="q_grey">联系我们</a></div>
+                        <div class="active"><a href="Feedback.html" class="q_grey">意见反馈</a></div>
+                    </div>
+                </div>
+                <div class="layui-col-md9 content_right bd_r">
+                    <div class="feed_back">
+                        <p class="title main_body font_l">意见反馈</p>
+                        <div class="content_box">
+                            <form class="layui-form" action="">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">您的联系方式</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="telephone" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                                        <span class="bitian">*</span>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">您的意见建议</label>
+                                    <div class="layui-input-block">
+                                        <textarea name="feed_back" placeholder="" class="layui-textarea"></textarea>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item form-btn">
+                                    <button type="button" lay-submit lay-filter="formFeed" class="layui-btn layui-btn-warm">提交</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script type="text/javascript" >
+    // $(".right_box>div").click(function(){
+    //     $(".right_box>div").eq($(this).index()).addClass("active").siblings().removeClass("active");
+    //     $(".content_right>div").hide().eq($(this).index()).show();
+    // })
+    $(".showLoading").css("opacity",'1')
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formFeed)', function(data){
+           layui.layer.load();
+           $(".showLoading").css("opacity",'0.1')
+            // layer.msg(JSON.stringify(data.field));
+            // return false;
+            var jsonParam = {
+                contactInformation: data.field.telephone,
+                content: data.field.feed_back
+            }
+            feedBack(jsonParam);
+           layui.layer.closeAll()
+           $(".showLoading").css("opacity",'1')
+        });
+        function feedBack(data){
+            $.ajax({
+                type: 'get',
+                dataType: "jsonp",
+                jsonp: "callback",//服务端用于接收
+                async: false,
+                contentType: 'application/json',
+                url: roadPath +  '/reg/feedback/addOrUpdateFeedback',
+                data: data,
+                success: function (resultMsg) {
+                    if (resultMsg.retCode == 0) {
+                        layer.alert('提示', {
+                            content: '您的意见反馈已提交'
+                        });
+                        // var authToken = encrypt('appointment' + ',' + data.username + ',' + resultMsg.data);
+                        // // var authToken = encrypt('client' + ',' + data.username + ',' + resultMsg.data);
+                        // localStorage.setItem('authToken', authToken);
+                        // // 关闭layer
+                        // parent.layer.close(index);
+                        // // 刷新父页面
+                        // parent.location.reload();
+                    } else {
+                        layer.alert('提示', {
+                            content: resultMsg.retMsg
+                        });
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                    alert('加载资源失败');
+                }
+            });
+        }
+    });
+</script>
+</html>

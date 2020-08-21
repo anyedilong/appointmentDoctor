@@ -1,0 +1,102 @@
+<!--预约挂号医院详细 appointmentDoctor-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <style>
+        .kepu_title{
+            font-size: 18px;
+            text-align: center;
+            margin-top: 30px;
+
+        }
+        .kepu_duanluo{
+            text-indent: 2em;
+            line-height:24px;
+            margin: 20px 0;
+        }
+        .kepu_list li{
+            line-height: 42px;
+            border-bottom: 1px dashed #F5F5F5;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .kepu_list li:hover{
+            color: #3C89F4;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-row bg_content container font_m main_body showLoading">
+        <div class="layui-col-md-offset2 layui-col-md8">
+            <p class="body-title c_grey">健康信息服务平台/预约指南</p>
+            <div class="layui-row hos_container">
+                <div class="layui-col-md12 content_right bd_r" style="padding: 20px 80px;">
+                    <div class="kepu_title" id="kepuTitle"></div>
+                    <div style="text-align: center;margin-top: 20px;" class="c_grey">
+                        <span id="kepuTime"></span>&emsp;&emsp;&emsp;&emsp;
+                        【发表】<span id="kepuHospital">卫健委</span>
+                    </div>
+                    <hr style="margin-top: 20px;">
+                    <div>
+                        <p class="kepu_duanluo" id="kepuContent"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script>
+    // function GetQueryString(name) {
+    //     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    //     var r = window.location.search.substr(1).match(reg);
+    //     if(r!=null)return  unescape(r[2]); return null;
+    // }
+    // var guideId = GetQueryString('id');
+    var guideId=localStorage.getItem('guideId');
+    // 查询科普详情
+    getPatientList();
+    function getPatientList(){
+       layui.use(['layer'], function () {
+          layui.layer.load();
+           var jsonParam = {
+               id:guideId
+           };
+           $.ajax({
+              type: 'get',
+              dataType: "jsonp",
+              jsonp: "callback",//服务端用于接收
+              async: false,
+              contentType: 'application/json',
+              url: roadPath + '/reg/regguide/getGuideInfoById',
+              data: jsonParam,
+              success: function (resultMsg) {
+                 if (resultMsg.retCode == 0) {
+                    // if(!resultMsg.data.hospitalName){
+                    //     resultMsg.data.hospitalName = '卫健委';
+                    // }
+                    var guideTitle = resultMsg.data.title;
+                    var guideTime = resultMsg.data.updateTime;
+                    var guideContent = resultMsg.data.content;
+                    // var kepuHospital = resultMsg.data.hospitalName;
+                    $('#kepuTitle').html(guideTitle);
+                    $('#kepuTime').html(guideTime);
+                    $('#kepuContent').html(guideContent);
+                    // $('#kepuHospital').html(kepuHospital);
+                 }
+              },
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                 alert('加载资源失败');
+              }
+           })
+          layui.layer.closeAll()
+          $(".showLoading").css("opacity",'1')
+        });
+    }
+</script>
+</html>

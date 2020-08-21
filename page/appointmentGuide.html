@@ -1,0 +1,361 @@
+<!--预约挂号医院详细 appointmentDoctor-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <link rel="stylesheet" href="../css/page/appointment.css">
+    <link rel="stylesheet" href="../css/page/appConfirm.css">
+    <style>
+        .guide_title{
+            position: relative;
+            font-size: 16px;
+            padding-left: 25px;
+            z-index: 0;
+            margin-bottom: 20px;
+        }
+        .guide_title span{
+            padding: 0 10px;
+            background: #fff;
+        }
+        .guide_title:before{
+            content: '';
+            width: 100%;
+            height: 1px;
+            background: #EDEDED;
+            position: absolute;
+            top: 10px;
+            left: 0;
+            z-index: -1;
+        }
+        .guide_content{
+            padding-left: 35px;
+            line-height: 20px;
+            height: 40px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            color: #757575;
+        }
+        .guide_box{
+            cursor: pointer;
+        }
+        .guide_box:hover .guide_content,.guide_box:hover .guide_title{
+            color: #3A86F3;
+        }
+        .guide_fl{
+            padding-top: 20px;
+        }
+        .guide_fl li{
+            line-height: 44px;
+            padding-left: 30%;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .guide_fl li.guide_fl_selected,.guide_fl li:hover{
+            background: #3A86F3;
+            color: #fff;
+        }
+        #guideRight>div{
+            display: none;
+        }
+        #demo1,#demo2,#demo3,#demo4{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-row bg_content container font_m main_body showLoading">
+        <div class="layui-col-md-offset2 layui-col-md8">
+            <p class="body-title c_grey">健康信息服务平台/预约指南</p>
+            <div class="layui-row hos_container">
+                <div class="layui-col-md3 content_left">
+                    <div style="height: 800px;background: #fff;">
+                        <ul class="guide_fl" id="guideLeft"></ul>
+                    </div>
+                </div>
+                <div class="layui-col-md9 content_right bd_r personal_right">
+                    <div style="font-size: 18px;margin-bottom: 30px;padding-left: 15px;">常见问题</div>
+                    <div id="guideRight">
+                        <div>
+                            <div id="guideOne" class="guide"></div>
+                            <div id="demo1"></div>
+                        </div>
+                        <div>
+                            <div id="guideTwo" class="guide"></div>
+                            <div id="demo2"></div>
+                        </div>
+                        <div>
+                            <div id="guideThree" class="guide"></div>
+                            <div id="demo3"></div>
+                        </div>
+                        <div>
+                            <div id="guideFour" class="guide"></div>
+                            <div id="demo4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script>
+    $(function () {
+       layui.use(['laypage', 'layer'], function() {
+          var laypage = layui.laypage;
+          layui.layer.load();
+          $('#guideRight div:first-child').show();
+          $('#guideLeft').on('click', 'li', function () {
+             $(this).addClass('guide_fl_selected').siblings().removeClass('guide_fl_selected');
+             var i = $(this).index() + 1;
+             $('#guideRight>div:nth-child(' + i + ')').show().siblings().hide();
+          });
+          var jsonParamOne = {
+             classificationid: '1003001',
+             pageNo: '1',
+             pageSize: '10'
+          };
+          var jsonParamTwo = {
+             classificationid: '1003002',
+             pageNo: '1',
+             pageSize: '10'
+          };
+          var jsonParamThree = {
+             classificationid: '1003003',
+             pageNo: '1',
+             pageSize: '10'
+          };
+          var jsonParamFour = {
+             classificationid: '1003004',
+             pageNo: '1',
+             pageSize: '10'
+          };
+          var guideTotalOne = '';
+          var guideTotalTwo = '';
+          var guideTotalThree = '';
+          var guideTotalFour = '';
+          layui.use(['laypage', 'layer'], function () {
+             var laypage = layui.laypage;
+             setTimeout(function () {
+                // 分页1
+                laypage.render({
+                   elem: 'demo1'
+                   , count: parseInt(guideTotalOne)
+                   , limit: 10
+                   , curr: 1
+                   , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                   , jump: function (obj) {
+                      jsonParamOne.pageNo = obj.curr;
+                      getPatientListOne()
+                   }
+                });
+                // 分页2
+                laypage.render({
+                   elem: 'demo2'
+                   , count: parseInt(guideTotalTwo)
+                   , limit: 10
+                   , curr: 1
+                   , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                   , jump: function (obj) {
+                      jsonParamTwo.pageNo = obj.curr;
+                      getPatientListTwo()
+                   }
+                });
+                // 分页3
+                laypage.render({
+                   elem: 'demo3'
+                   , count: parseInt(guideTotalThree)
+                   , limit: 10
+                   , curr: 1
+                   , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                   , jump: function (obj) {
+                      jsonParamThree.pageNo = obj.curr;
+                      getPatientListThree();
+                   }
+                });
+                // 分页4
+                laypage.render({
+                   elem: 'demo4'
+                   , count: parseInt(guideTotalFour)
+                   , limit: 10
+                   , curr: 1
+                   , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                   , jump: function (obj) {
+                      jsonParamFour.pageNo = obj.curr;
+                      getPatientListFour();
+                   }
+                });
+             }, 1000);
+          });
+          // 查询指南菜单
+          getGuideMenu();
+
+          function getGuideMenu() {
+             var jsonParam = {};
+             $.ajax({
+                type: 'get',
+                dataType: "jsonp",
+                jsonp: "callback",//服务端用于接收
+                async: false,
+                contentType: 'application/json',
+                url: roadPath + '/reg/regguide/getGuideClassify',
+                data: jsonParam,
+                success: function (resultMsg) {
+                   if (resultMsg.retCode == 0) {
+                      var html = "";
+                      // 只展示6个就诊人
+                      var dataList = resultMsg.data;
+                      $.each(dataList, function (i, item) {
+                         html += '<li>' + item.name + '</li>';
+                      });
+                      $("#guideLeft").append(html);
+                      $('#guideLeft li:first-child').addClass('guide_fl_selected')
+                   }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                   alert('加载资源失败');
+                }
+             });
+          }
+
+          // 查询指南列表
+          getPatientListOne();
+
+          function getPatientListOne() {
+             layui.layer.closeAll()
+             $(".showLoading").css("opacity", '1')
+             $.ajax({
+                type: 'get',
+                dataType: "jsonp",
+                jsonp: "callback",//服务端用于接收
+                async: false,
+                contentType: 'application/json',
+                url: roadPath + '/reg/regguide/getGuideListPaging',
+                data: jsonParamOne,
+                success: function (resultMsg) {
+                   if (resultMsg.retCode == 0) {
+                      var html = "";
+                      var dataList = resultMsg.data.list;
+                      guideTotalOne = resultMsg.data.count;
+                      $.each(dataList, function (i, item) {
+                         html += '<div class="guide_box" data-ids="' + item.id + '">' +
+                            '<div class="guide_title"><span>' + item.title + '</span></div>' +
+                            '<div class="guide_content">' + item.content + '</div>' +
+                            '</div>';
+                      });
+                      $("#guideOne").html(html);
+
+                   }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                   alert('加载资源失败');
+                }
+             });
+          }
+
+          getPatientListTwo();
+
+          function getPatientListTwo() {
+             layui.layer.closeAll()
+             $(".showLoading").css("opacity", '1')
+             $.ajax({
+                type: 'get',
+                dataType: "jsonp",
+                jsonp: "callback",//服务端用于接收
+                async: false,
+                contentType: 'application/json',
+                url: roadPath + '/reg/regguide/getGuideListPaging',
+                data: jsonParamTwo,
+                success: function (resultMsg) {
+                   if (resultMsg.retCode == 0) {
+                      var html = "";
+                      var dataList = resultMsg.data.list;
+                      guideTotalTwo = resultMsg.data.count;
+                      $.each(dataList, function (i, item) {
+                         html += '<div class="guide_box" data-ids="' + item.id + '">' +
+                            '<div class="guide_title"><span>' + item.title + '</span></div>' +
+                            '<div class="guide_content">' + item.content + '</div>' +
+                            '</div>';
+                      });
+                      $("#guideTwo").html(html);
+                   }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                   alert('加载资源失败');
+                }
+             });
+          }
+
+          getPatientListThree();
+
+          function getPatientListThree() {
+             layui.layer.closeAll()
+             $(".showLoading").css("opacity", '1')
+             $.ajax({
+                type: 'get',
+                dataType: "jsonp",
+                jsonp: "callback",//服务端用于接收
+                async: false,
+                contentType: 'application/json',
+                url: roadPath + '/reg/regguide/getGuideListPaging',
+                data: jsonParamThree,
+                success: function (resultMsg) {
+                   if (resultMsg.retCode == 0) {
+                      var html = "";
+                      var dataList = resultMsg.data.list;
+                      guideTotalThree = resultMsg.data.count;
+                      $.each(dataList, function (i, item) {
+                         html += '<div class="guide_box" data-ids="' + item.id + '">' +
+                            '<div class="guide_title"><span>' + item.title + '</span></div>' +
+                            '<div class="guide_content">' + item.content + '</div>' +
+                            '</div>';
+                      });
+                      $("#guideThree").html(html);
+                   }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                   alert('加载资源失败');
+                }
+             });
+          }
+
+          getPatientListFour();
+
+          function getPatientListFour() {
+             $.ajax({
+                type: 'get',
+                dataType: "jsonp",
+                jsonp: "callback",//服务端用于接收
+                async: false,
+                contentType: 'application/json',
+                url: roadPath + '/reg/regguide/getGuideListPaging',
+                data: jsonParamFour,
+                success: function (resultMsg) {
+                   if (resultMsg.retCode == 0) {
+                      var html = "";
+                      var dataList = resultMsg.data.list;
+                      guideTotalFour = resultMsg.data.count;
+                      $.each(dataList, function (i, item) {
+                         html += '<div class="guide_box" data-ids="' + item.id + '">' +
+                            '<div class="guide_title"><span>' + item.title + '</span></div>' +
+                            '<div class="guide_content">' + item.content + '</div>' +
+                            '</div>';
+                      });
+                      $("#guideFour").html(html);
+                   }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                   alert('加载资源失败');
+                }
+             });
+             $('.guide').on('click', '.guide_box', function () {
+                var guideId = $(this).attr("data-ids");
+                localStorage.setItem("guideId", guideId);
+                window.open("appointmentGuideDetails.html");
+             })
+          }
+       })
+    })
+</script>
+</html>

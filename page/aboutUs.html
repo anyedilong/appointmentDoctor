@@ -1,0 +1,111 @@
+<!--关于我们-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <link rel="stylesheet" href="../css/page/index.css">
+    <style>
+        .art-inner  {
+            behavior: url(../js/PIE/PIE.htc);
+            position: relative;
+        }
+        body, .aboutus-box {
+            background: #F5F5F5;
+            color: #323231;
+        }
+        .aboutus-banner {
+            background: url("../img/about-banner.png") no-repeat top center;
+            width: 100%;
+            height: 450px;
+            margin-bottom: 30px;
+           background-size: 100% 100%;
+        }
+        .art-inner {
+            background: #FFFFFF;
+            padding: 40px 40px 200px 40px;
+            border-radius:4px;
+            margin-bottom: 30px;
+            /*margin: 30px 0;*/
+        }
+        .art-tit {
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .art-con {
+            font-size: 14px;
+            line-height: 1.8em;
+        }
+        .art-p {
+            text-indent: 2em;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="aboutus-box showLoading">
+        <div class="aboutus-banner"></div>
+        <div class="aboutus-article layui-row">
+            <div class="art-inner layui-col-md-offset2 layui-col-md8">
+                <div class="art-tit">预约挂平台简介</div>
+                <div class="art-con">
+                    <!--<p class="art-p">-->
+                        <!--博乐通预约挂号平台是国内互联网医疗服务平台，致力于连接机构、医生和用户，提供从体检、就医到药品、医疗器械、医美等全方位医疗大健康服务，打造互联网医疗健康服务平台。-->
+                    <!--</p>-->
+                    <!--<p class="art-p">-->
+                        <!--主要业务体系主要包括：以大型公立医院为切入点，帮助医院优化业务流程，改善患者就医体验，提供挂号、支付、电子检查报告单、专科随访等全流程网上医院服务；服务基层医疗，提供以患者为中心的互联网分级诊疗平台，分流患者到社区、推动病情优先的分级诊疗，助力医院和社区间的双向转诊，打造互联网分级诊疗体系；为用户提供权威、可靠、实用的医疗健康资讯，以及优质的全生命周期健康管理服务；连接保险和药企，广泛引入健康产业链合作伙伴，打造开放、共赢的医疗健康生态系统。-->
+                    <!--</p>-->
+                    <!--<p class="art-p">-->
+                        <!--服务已得到国家卫健委、医管局等卫生行政主管部门的高度认可，平台已有包括BAT、银行、保险公司、电信运营商、大型药企、医疗设备商、健康管理公司等2000多家优质合作伙伴，成为国内领先的医疗互联网+生态系统。-->
+                    <!--</p>-->
+                    <!--<p class="art-p">-->
+                        <!--目前已接入全国7000多家大型医院，覆盖200多个城市，平台现有加盟医生突破50万人，日服务用户超过300万人次，累计为来自全国的患者提供近5亿次线上医疗健康服务，实名注册用户超过1.6亿。-->
+                    <!--</p>-->
+                    <!--<p class="art-p">-->
+                        <!--博乐通预约挂号平台是国内互联网医疗服务平台，致力于连接机构、医生和用户，提供从体检、就医到药品、医疗器械、医美等全方位医疗大健康服务，打造互联网医疗健康服务平台。-->
+                    <!--</p>-->
+                    <!--<p class="art-p">-->
+                        <!--主要业务体系主要包括：以大型公立医院为切入点，帮助医院优化业务流程，改善患者就医体验，提供挂号、支付、电子检查报告单、专科随访等全流程网上医院服务；服务基层医疗，提供以患者为中心的互联网分级诊疗平台，分流患者到社区、推动病情优先的分级诊疗，助力医院和社区间的双向转诊，打造互联网分级诊疗体系；为用户提供权威、可靠、实用的医疗健康资讯，以及优质的全生命周期健康管理服务；连接保险和药企，广泛引入健康产业链合作伙伴，打造开放、共赢的医疗健康生态系统。-->
+                    <!--</p>-->
+                    <!--<p class="art-p">-->
+                        <!--服务已得到国家卫健委、医管局等卫生行政主管部门的高度认可，平台已有包括BAT、银行、保险公司、电信运营商、大型药企、医疗设备商、健康管理公司等2000多家优质合作伙伴，成为国内领先的医疗互联网+生态系统。-->
+                    <!--</p>-->
+                    <!--<p class="art-p">-->
+                        <!--目前已接入全国7000多家大型医院，覆盖200多个城市，平台现有加盟医生突破50万人，日服务用户超过300万人次，累计为来自全国的患者提供近5亿次线上医疗健康服务，实名注册用户超过1.6亿。-->
+                    <!--</p>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script>
+    $(function () {
+       layui.use(['layer'], function () {
+          layui.layer.load();
+          var jsonParam = {};
+          $.ajax({
+             type: 'get',
+             dataType: "jsonp",
+             jsonp: "callback",//服务端用于接收
+             async: false,
+             contentType: 'application/json',
+             url: roadPath + '/reg/sysAboutUs/getAboutInfo',
+             data: jsonParam,
+             success: function (resultMsg) {
+                // 暂定 后台出来后数据进行替换
+                $('.art-con').html(resultMsg.data[0].content);
+             },
+             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('加载资源失败');
+             }
+          });
+          layui.layer.closeAll()
+          $(".showLoading").css("opacity",'1')
+       });
+    })
+</script>
+</html>

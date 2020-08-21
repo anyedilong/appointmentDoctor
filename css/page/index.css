@@ -1,0 +1,78 @@
+.body-box {
+    width: 100%;
+}
+.body-banner {
+    width: 100%;
+    height: 370px;
+    padding: 40px 0;
+    position: relative;
+    z-index: 1;
+    background: url("../../img/bannerbg.png") no-repeat top center;
+    background-size: 100% 100%;
+}
+/*.banner-bg {*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*overflow-x: hidden;*/
+    /*!*background: url("../../img/bannerbg.png") no-repeat top center;*!*/
+/*}*/
+.banner-bg>img {
+
+}
+.bodyBanner-form {
+    height: 100%;
+    width: 320px;
+    /*margin-right: 20px;*/
+    background: #ffffff;
+    padding: 20px;
+    box-sizing: border-box;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    z-index: 0;
+}
+.tttt {
+    width: 1050px;
+    display: block;
+    margin: 0 auto;
+}
+.banner-form img {
+    position: relative;
+    width: auto;
+    height: 320px;
+    bottom: -40px;
+    float: right;
+    z-index: 1000;
+}
+.banner-form, .banner-img {
+    height: 100%;
+}
+.banner-img > img {
+    width: 100%;
+}
+.form-tit {
+    font-size: 20px;
+    border-bottom: 1px solid #EDEDED;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+/*首页内容开始*/
+/*layui*/
+.bodyBanner-form .layui-form-label {
+    width: 30px;
+    color: #323231;
+}
+.bodyBanner-form .layui-input-block {
+    margin-left: 60px;
+}
+.doc-shanchang {
+    line-height: 1.2em;
+    height: 2.4em;
+    overflow: hidden;
+}
+.shanc{
+    display: inline-block;
+}

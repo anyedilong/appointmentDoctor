@@ -1,0 +1,160 @@
+<!--首页-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <script src="../js/cryptojs.js"></script>
+    <link rel="stylesheet" href="../css/page/index.css">
+    <style>
+        .bodyBanner-form, .form-btn button, .docCard-box, .docCard-pic {
+            behavior: url(../js/PIE/PIE.htc);
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="body-box">
+        <div class="body-banner layui-row">
+            <!--<div class="banner-bg">-->
+                <!--&lt;!&ndash;<img src="../img/bannerbg.png" alt="">&ndash;&gt;-->
+            <!--</div>-->
+            <!--<div class="layui-col-md-offset2 layui-col-md8 banner-form">-->
+            <div class="banner-form" style="width: 1150px; margin: 0 auto;">
+                <div class="tttt">
+                    <div class="bodyBanner-form fl">
+                        <div class="form-tit">快速挂号</div>
+                        <form class="layui-form" action="">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">医院</label>
+                                <div class="layui-input-block">
+                                    <select id="hospital" lay-filter="hospitalSel" name="hospital" lay-verify="required" lay-search>
+                                        <option value="">搜索医院</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">科室</label>
+                                <div class="layui-input-block">
+                                    <select id="keshi" lay-filter="keshiSel" name="keshi" lay-verify="required" lay-search>
+                                        <option value="">搜索科室</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">医生</label>
+                                <div class="layui-input-block">
+                                    <select id="yisheng" lay-filter="yishengSel" name="yisheng" lay-verify="required" lay-search>
+                                        <option value="">搜索医生</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item form-btn">
+                                <!--<img src="../img/yuyuebtn.png" alt="">-->
+                                <button type="button" lay-submit lay-filter="formDemo" class="layui-btn layui-btn-warm">立即预约</button>
+                            </div>
+                        </form>
+                    </div>
+                    <img src="../img/banner.png" alt="">
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="body-con layui-row">
+            <div class="bodyCon-inner layui-col-md-offset2 layui-col-md8">
+                <div class="cardTit">
+                    <span class="cardTit-tit">推荐医院</span>
+                    <div class="cardTit-more fr" tourl="appointment.html" code="0">
+                        <span>更多医院</span>
+                        <img src="../img/icon_more.png" alt="">
+                    </div>
+                </div>
+                <div id="hospitalList" class="body-card layui-row layui-col-space20">
+                    <!--<div class="hospital-card layui-col-md3">-->
+                        <!--<div class="hosCard-box">-->
+                            <!--<div class="hosCard-pic">-->
+                                <!--<div class="hos-tag">三级甲等</div>-->
+                                <!--<img src="../img/hospital.png" alt="">-->
+                            <!--</div>-->
+                            <!--<div class="hosCard-info">-->
+                                <!--<div class="hosCard-name">-->
+                                    <!--<span>马龙区人民医院</span>-->
+                                    <!--<div class="tel-box">-->
+                                        <!--&lt;!&ndash;<img src="../img/icon_tel.png" alt="">&ndash;&gt;-->
+                                        <!--<i class="iconfamily">&#xe63a;</i>-->
+                                        <!--<div class="tel-txt">0531-99998869</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="hosCard-addr">-->
+                                    <!--<i class="iconfamily">&#xe61e;</i>-->
+                                    <!--曲靖市马龙区通泉镇龙泉北路54号-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
+                <div class="cardTit">
+                    <span class="cardTit-tit">推荐医生</span>
+                    <div class="cardTit-more fr" tourl="appointment.html" code="1">
+                        <span>更多医生</span>
+                        <img src="../img/icon_more.png" alt="">
+                    </div>
+                </div>
+                <div id="doctorList" class="body-card">
+                    <div class="layui-row layui-col-space20">
+                        <!--<div class="doctor-card layui-col-md4">-->
+                            <!--<div class="docCard-box">-->
+                                <!--<div class="docCard-pic">-->
+                                    <!--<img src="../img/doctor.png" alt="">-->
+                                <!--</div>-->
+                                <!--<div class="docCard-info">-->
+                                    <!--<div class="doc-name">-->
+                                        <!--<span>张医生</span>-->
+                                        <!--<span>主任医师</span>-->
+                                        <!--<span>教授</span>-->
+                                    <!--</div>-->
+                                    <!--<div class="doc-hospital">-->
+                                        <!--马龙区人民医院   儿童消化内科-->
+                                    <!--</div>-->
+                                    <!--<div>-->
+                                        <!--擅长：小二呼吸系统、消化系统、积食、 发烧...-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="clear"></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+                <div class="cardTit">
+                    <span class="cardTit-tit">健康科普</span>
+                    <div class="cardTit-more fr" tourl="healthScience.html">
+                        <span>更多文章</span>
+                        <img src="../img/icon_more.png" alt="">
+                    </div>
+                </div>
+                <div id="kepuList" class="body-card layui-row layui-col-space20">
+                    <!--<div class="doctor-card layui-col-md4">-->
+                        <!--<div class="docCard-box">-->
+                            <!--<div class="docCard-pic">-->
+                                <!--<img src="../img/health.jpg" alt="">-->
+                            <!--</div>-->
+                            <!--<div class="health-info">-->
+                                <!--<div class="health-tit">-->
+                                    <!--<span>血压高的人，想要健康长寿，提醒： 三种食物最好从餐桌撤下</span>-->
+                                <!--</div>-->
+                                <!--<div class="health-from">马龙区人民医院</div>-->
+                            <!--</div>-->
+                            <!--<div class="clear"></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script src="../js/page/index.js"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+</html>

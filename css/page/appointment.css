@@ -1,0 +1,236 @@
+/*.body-title{*/
+    /*padding: 20px 0;*/
+/*}*/
+.select_container{
+    background: #3A86F3;
+    border-radius: 4px;
+}
+.bg_left{
+    width: 10.5%;
+    background:#3A86F3;
+    font-size: 16px !important;
+}
+.bg_f{
+    width: 89.5%;
+    background: #fff;
+}
+.bg_left p{
+    text-align: center;
+    color:#fff;
+    padding: 22px 0;
+    cursor: pointer;
+}
+.active{
+    background: #fff;
+    color:#3A86F3 !important;
+    /*border-radius: 4px;*/
+}
+/*.container{*/
+    /*position: absolute;height: 100%;top: 229px;left:0;right: 0;z-index: 9*/
+/*}*/
+.right_content{
+   padding: 10px 20px;
+   display: none;
+    min-height: 150px;
+}
+.message_list{
+    display: none;
+    margin-top: 40px;
+}
+.isShow{
+    display: block;
+}
+.right_content li{
+    margin: 10px 0;
+}
+.right_content li:last-child{
+    margin-bottom: 0;
+}
+.label_container{
+    width: 100%;
+    height: 41px;
+    overflow: hidden;
+}
+.label_container_ys{
+    width: 100%;
+    height: 130px;
+    overflow: hidden;
+}
+.text_r{
+    text-align: right;
+}
+.label_two{
+    width: 70%;
+}
+/*.label_one{*/
+    /**/
+/*}*/
+/*.label{*/
+    /*display: inline-block;*/
+    /*margin: 5px;*/
+    /*padding: 6px 9px;*/
+/*}*/
+/*.bg_left_active{*/
+    /*background: #3A86F3;*/
+    /*border-radius: 4px;*/
+    /*color:#fff;*/
+/*}*/
+.readActive{
+    height: 100% !important;
+}
+.bg_more{
+    background: rgba(245,245,245,1);
+    cursor: pointer;
+}
+.messagea_s{
+    margin: 30px 0;
+}
+.messagea_s li{
+    padding: 8px 30px;
+    margin-right: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.remove_c{
+    padding: 0 !important;
+}
+.mes_left_active{
+    background: #3A86F3;
+    border-radius: 20px;
+    color:#fff;
+}
+.hosCard-info{
+    background: #fff !important;
+}
+.docCard-box{
+    background: #fff !important;
+}
+/*layui分页修改*/
+#demo7 , #demo8{
+    text-align: center;
+}
+.layui-laypage{
+    margin: 25px 0 !important;
+}
+.layui-laypage-count ,.layui-laypage-limits, .layui-laypage-refresh{
+    display: none !important;
+}
+.layui-laypage .layui-laypage-curr .layui-laypage-em{
+    background: #5DA2F9 !important;
+}
+.layui-laypage a, .layui-laypage span {
+    padding: 0 9px;
+    margin: 0 5px 5px 5px;
+    font-size: 16px;
+}
+.layui-laypage a:hover, .layui-laypage span:hover{
+    color: #5DA2F9;
+}
+.layui-laypage-spr{
+    border: none !important;
+    background: #F5F5F5 !important;
+}
+.layui-laypage input:focus{
+    border-color:#5DA2F9 !important;
+}
+/*layui时间选择修改*/
+.layui-form-item{
+    margin: 0!important;
+}
+.layui-form-item .layui-inline{
+    margin: 0 !important;
+}
+.layui-form-item .layui-input-inline{
+    width: 125px !important;
+    position: relative;
+    margin: 0;
+}
+.layui-input{
+    height: 32px; cursor: pointer;
+    border:1px solid rgba(237,237,237,1);
+}
+.layui-laydate .layui-this{
+    background: #5DA2F9 !important;
+}
+.layui-laydate-footer{
+    display: none;
+}
+/*预约挂号医院详细*/
+.hops{
+    margin: 30px 0;
+}
+.iconTime{
+    position: absolute; top:8px; right:5px; color: #EDEDED;
+    /*transition: all .3s;*/
+    /*-webkit-transition: all .3s;*/
+}
+.layui-laypage{
+    display: block !important;
+    text-align: center;
+}
+/*.iconTimed{*/
+    /*-webkit-transform: rotate(180deg);*/
+    /*transform: rotate(180deg);*/
+/*}*/
+/*.bd_r{*/
+    /*border-radius: 4px;*/
+/*}*/
+/*.content_left{*/
+    /*padding-right: 20px;*/
+/*}*/
+/*.hospital_name{*/
+    /*text-align: center;*/
+    /*background: #fff;*/
+    /*padding: 30px 20px;*/
+/*}*/
+/*.hospital_name img{*/
+    /*width: 40%;*/
+/*}*/
+/*.mar_t{*/
+    /*margin-top: 10px;*/
+/*}*/
+/*.font_e{*/
+    /*font-size: 18px !important;*/
+/*}*/
+/*.hospital_tag{*/
+    /*background: #FDA028;*/
+    /*color: #FFFFFF;*/
+    /*padding: 3px 10px;*/
+    /*border-radius: 4px;*/
+/*}*/
+/*.hos_num{*/
+    /*margin-bottom: 20px;*/
+/*}*/
+/*.hos_num li{*/
+    /*width: 50%;*/
+    /*padding: 10px 0;*/
+    /*text-align: center;*/
+    /*background: #EDEDED;*/
+/*}*/
+/*.hos_introduce{*/
+    /*padding: 20px;*/
+    /*background: #fff;*/
+/*}*/
+/*.hei_clear{*/
+    /*padding: 0 !important;*/
+/*}*/
+/*.intro_d{*/
+    /*line-height: 18px;*/
+    /*margin-top: 8px;*/
+/*}*/
+/*.contact_us{*/
+    /*padding: 20px; margin-top: 20px;background: #fff;*/
+/*}*/
+/*.contact_li li{*/
+    /*margin-top: 8px;*/
+/*}*/
+/*.hos_container{*/
+    /*padding-bottom: 30px;*/
+/*}*/
+/*.content_right{*/
+    /*background: #fff;*/
+    /*padding: 20px;*/
+/*}*/
+/*.content_tag{*/
+    /*padding: 0 20px;*/
+/*}*/

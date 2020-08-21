@@ -1,0 +1,120 @@
+<!--用来生成js文件-->
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='../js/jquery-1.8.0.js'></script>
+    <link rel='stylesheet' href='../js/layui/css/layui.css'>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src='../js/html5shiv.min.js'></script>
+    <script src='../js/respond.min.js'></script>
+    <script src='../js/PIE/PIE.js'></script>
+    <![endif]-->
+    <link rel='stylesheet' href='../css/base.css'>
+    <link rel='stylesheet' href='../css/reset.css'>
+    <link rel='stylesheet' href='../css/page/head.css'>
+    <script src='../js/layui/layui.js'></script>
+    <script src='../js/page/public_head.js'></script>
+    <link rel='stylesheet' href='../icon/iconfont.css'>
+    //     <script src='../icon/iconfont.js'></script>
+    <script src='../js/commen.js'></script>
+    <style>
+        .headinp-inp, .headinp-inp input, .headinp-btn, .layui-layer-login.layui-layer {
+            behavior: url(../js/PIE/PIE.htc);
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div class='head-box'>
+    <div class='head-bar layui-row'>
+        <div class='headBar-inner layui-col-md-offset2 layui-col-md8'>
+            <div class='fl leftTop'>欢迎您登录预约诊疗服务平台</div>
+            <div class='fr'>
+                <div class='fl login-box weilogin'>
+                    请
+                    <span class='blue cursorP' id='loginBtn'>登录</span>
+                    或
+                    <span class='blue cursorP' id='registerBtn'>注册</span>
+                </div>
+                <div class='fl login-box yilogin cursorP'>
+                    <span class='blue username'>13012345678</span>
+                    <ul class='login-ul'>
+                        <li class='login-li' id='logout'>退出</li>
+                        <!--<li class='login-li'>退出哈哈哈哈哈哈</li>-->
+                    </ul>
+                </div>
+                <div class='fl dingdan-box cursorP' id='dingdanBtn'>订单信息</div>
+            </div>
+            <div class='clear'></div>
+        </div>
+    </div>
+    <div class='head-tit layui-row'>
+        <div class='headTit-inner layui-col-md-offset2 layui-col-md8'>
+            <div class='fl headTit-left'>
+                <div class='logo fl'>
+                    <img src='../img/logo.png' alt=''>
+                </div>
+                <div class='tit-txt fl'>
+                    <div class='head-tit-bg'>预约诊疗服务平台</div>
+                    <div class='head-tit-sm'>预约诊疗服务平台</div>
+                </div>
+            </div>
+            <div class='fr headTit-right layui-row'>
+                <ul class='headinp-tab'>
+                    <li class='fl' code='0'>
+                        医院
+                        <img src='../img/search_select.png' alt=''>
+                    </li>
+                    <li class='fl' code='1'>
+                        医生
+                        <img src='../img/search_select.png' alt=''>
+                    </li>
+                    <!--<li class='clear'></li>-->
+                </ul>
+                <div class='layui-row'>
+                    <div class='headinp-box'>
+                        <div class='headinp-inp'>
+                            <input type='text' id='searchInp'>
+                        </div>
+                        <div class='headinp-btn layui-col-md2' id='searchBtn'>
+                            搜索
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='clear'></div>
+        </div>
+    </div>
+    <div class='head-tab layui-row'>
+        <div class='headTab-inner layui-col-md-offset2 layui-col-md8'>
+            <ul class='headTab-ul'>
+                <li>
+                    网站首页
+                    <img src='../img/icon_select_white.png' alt=''>
+                </li>
+                <li>
+                    预约挂号
+                    <img src='../img/icon_select_white.png' alt=''>
+                </li>
+                <li>
+                    个人中心
+                    <img src='../img/icon_select_white.png' alt=''>
+                </li>
+                <li>
+                    健康科普
+                    <img src='../img/icon_select_white.png' alt=''>
+                </li>
+                <li>
+                    预约指南
+                    <img src='../img/icon_select_white.png' alt=''>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

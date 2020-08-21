@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../js/jquery-1.8.0.js"></script>
+    <link rel="stylesheet" href="../css/layui.css">
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="../js/html5shiv.min.js"></script>
+    <script src="../js/respond.min.js"></script>
+    <script src='../js/PIE/PIE.js'></script>
+    <![endif]-->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <script src="../js/layui/layui.js"></script>
+    <link rel="stylesheet" href="../icon/iconfont.css">
+    <script src="../icon/iconfont.js"></script>
+    <script src="../js/commen.js"></script>
+    <title>Title</title>
+    <style>
+        body,ul,li{
+            padding:0;
+            margin: 0;
+        }
+        .container{
+            text-align: center;
+            padding: 30px 0;
+        }
+        li{
+            list-style: none;
+            cursor: pointer;
+        }
+        .rating{
+            width: 200px;
+            /*height: 26px;*/
+            margin: 20px auto 10px;
+        }
+        .rating-item{
+            float: left;
+            width:30px;
+            height: 30px;
+            background: url("../img/star.png") no-repeat ;
+            /*-webkit-background-size:30px 60px;*/
+            /*background-size: 30px 60px;*/
+            background-position: 0 -32px;
+            overflow: hidden;
+            margin-left: 10px;
+        }
+        .select_tab{
+            padding: 0 50px;
+            margin: 30px 0;
+        }
+        .select_tab li{
+            float: left;
+            margin: 10px;
+            padding: 5px 10px;
+            border: 1px solid #EDEDED;
+            cursor: pointer;
+        }
+        .active{
+            background: #FEF0DE;
+            border: 1px solid #FDA028 !important;
+            color: #FDA028;
+        }
+        /*.btn_que{*/
+            /*background: #FDA029;*/
+            /*color: #fff;*/
+        /*}*/
+        /*.btn_qu ,btn_qu:hover{*/
+            /*background: #EDEDED !important;*/
+            /*color: #757575 !important;*/
+        /*}*/
+        /*.ti_btn{*/
+            /*position: absolute;*/
+            /*bottom:20px;*/
+            /*width: 100%;*/
+            /*text-align: center;*/
+        /*}*/
+    </style>
+</head>
+<body>
+    <div class="container font_m pingj">
+        <div class="font_e c_grey">请对您本次预约的医生进行评价</div>
+        <ul class="rating" id="rating">
+            <li class="rating-item" title="很不好"></li>
+            <li class="rating-item" title="不好"></li>
+            <li class="rating-item" title="一般"></li>
+            <li class="rating-item" title="好"></li>
+            <li class="rating-item" title="很好"></li>
+            <li class="clear"></li>
+        </ul>
+        <div class="yellow_s">一般，还需要改善</div>
+        <ul class="select_tab">
+            <li class="active bd_r">中庸之才</li>
+            <li class="bd_r">差强人意</li>
+            <li class="bd_r">效果一般</li>
+            <li class="bd_r">态度一般</li>
+        </ul>
+        <!--<div class="ti_btn">-->
+            <!--<button type="button" class="layui-btn btn_que">确认</button>-->
+            <!--<button type="button" class="layui-btn btn_qu">取消</button>-->
+        <!--</div>-->
+
+    </div>
+<script src="../js/jquery-1.8.0.js"></script>
+<script>
+    $(function () {
+        var num = 5;//点亮个数
+        var tag = []
+        sessionStorage.setItem("rate",num)
+        $item = $('#rating').find('.rating-item');//获取的所有li
+        //点亮星星函数
+        var dianLiang = function (num) {
+            $item.each(function (index) { //遍历所有li,即所有星星
+                if (index < num){
+                    $(this).css('background-position','0 0') //点亮
+                }else {
+                    $(this).css('background-position','0 -32px') //未点亮
+                }
+            })
+        }
+        //    初始化,默认点亮2颗
+        dianLiang(num)
+        //    绑定事件
+        $item.on('mouseover',function () {
+            dianLiang($(this).index() + 1)
+            rate = $(this).index() +1
+        }).on('click',function () {
+            dianLiang($(this).index() +1);
+            num = $(this).index() +1
+            sessionStorage.setItem("rate",num)
+            tag = []
+            fenshu()
+        })
+        $('#rating').on('mouseout',function () {
+            dianLiang(num)
+        })
+
+        fenshu()
+        function fenshu(){
+            var list1 = ""
+            var list2 = ""
+            var list3 = ""
+            var list4 = ""
+            var list5 = ""
+            $.ajax({
+                type: 'get',
+                dataType: "jsonp",
+                jsonp: "callback",//服务端用于接收
+                async: false,
+                contentType: 'application/json',
+                url: roadPath + '/reg/subscribe/getComment',
+                data: '',
+                success: function (resultMsg) {
+                    if(resultMsg.retCode == 0) {
+                       list1 = resultMsg.data[0].name.split(",")
+                        // console.log(list1)
+                       list2 = resultMsg.data[1].name.split(",")
+                        // console.log(list2)
+                       list3 = resultMsg.data[2].name.split(",")
+                        // console.log(list3)
+                       list4 = resultMsg.data[3].name.split(",")
+                        // console.log(list4)
+                       list5 = resultMsg.data[4].name.split(",")
+                        // console.log(list5)
+                        var text_h=""
+                        var list = []
+                        var eva_text=""
+                        if(num === 1){
+                            text_h = "非常不满意，各方面都比较差";
+                            $.each(list1, function (i, item) {
+                                // eva_text += '<li class="bd_r" ids="'+item.id+'">'+ item.content +'</li>'
+                                eva_text += '<li class="bd_r">'+ item +'</li>'
+                            });
+                            $(".select_tab").html(eva_text);
+                            $(".yellow_s").html(text_h);
+                            tag.push( $(".yellow_s").text())
+                        }else if(num === 2){
+                            text_h = "不满意，比较差";
+                            $.each(list2, function (i, item) {
+                                // eva_text += '<li class="bd_r" ids="'+item.id+'">'+ item.content +'</li>'
+                                eva_text += '<li class="bd_r">'+ item +'</li>'
+                            });
+                            $(".select_tab").html(eva_text);
+                            $(".yellow_s").html(text_h);
+                            tag.push( $(".yellow_s").text())
+                        }else if(num === 3){
+                            text_h = "一般，还需要改善";
+                            $.each(list3, function (i, item) {
+                                // eva_text += '<li class="bd_r" ids="'+item.id+'">'+ item.content +'</li>'
+                                eva_text += '<li class="bd_r">'+ item +'</li>'
+                            });
+                            $(".select_tab").html(eva_text);
+                            $(".yellow_s").html(text_h);
+                            tag.push( $(".yellow_s").text())
+                        }else if(num === 4){
+                            text_h = "比较满意，仍可改善";
+                            $.each(list4, function (i, item) {
+                                // eva_text += '<li class="bd_r" ids="'+item.id+'">'+ item.content +'</li>'
+                                eva_text += '<li class="bd_r">'+ item +'</li>'
+                            });
+                            $(".select_tab").html(eva_text);
+                            $(".yellow_s").html(text_h);
+                            tag.push( $(".yellow_s").text())
+                        }else if(num === 5){
+                            text_h = "非常满意，无可挑剔";
+                            $.each(list5, function (i, item) {
+                                // eva_text += '<li class="bd_r" ids="'+item.id+'">'+ item.content +'</li>'
+                                eva_text += '<li class="bd_r">'+ item +'</li>'
+                            });
+                            $(".select_tab").html(eva_text);
+                            $(".yellow_s").html(text_h);
+                            tag.push( $(".yellow_s").text())
+                        }
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('加载资源失败');
+                }
+        });
+            // console.log(num)
+
+
+        }
+        selTag()
+        function selTag(){
+            $(".select_tab").on("click","li",function () {
+                $(this).toggleClass("active");
+                var num = $(this).context.className.indexOf("active")
+                if(num > -1){
+                    // tag.push($(this).attr("ids"))
+                    tag.push($(this).text())
+                }else{
+                    // tag.splice($.inArray($(this).attr("ids"), tag), 1);
+                    tag.splice($.inArray($(this).text(), tag), 1);
+                }
+                sessionStorage.setItem("rate_c",tag.join(','))
+            })
+        }
+    })
+</script>
+</body>
+</html>

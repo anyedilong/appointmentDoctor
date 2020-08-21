@@ -1,0 +1,305 @@
+<!--预约挂号医院详细 appointmentDoctor-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <link rel="stylesheet" href="../css/page/appointment.css">
+    <link rel="stylesheet" href="../css/page/appConfirm.css">
+    <style>
+        .docCard-box, .docCard-pic, .form-btn button{
+            behavior: url(../js/PIE/PIE.htc);
+            position: relative;
+        }
+        .kepu_title{
+            font-size: 18px;
+            text-align: center;
+            margin-top: 30px;
+
+        }
+        .kepu_duanluo{
+            text-indent: 2em;
+            line-height:24px;
+            margin: 20px 0;
+        }
+        .kepu_box{
+            padding: 20px;
+            background: #fff;
+        }
+        .kepu_list{
+            margin-top: 15px;
+        }
+        .kepu_list li{
+            line-height: 42px;
+            border-bottom: 1px dashed #F5F5F5;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .kepu_list li:hover{
+            color: #3C89F4;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-row bg_content container font_m main_body showLoading">
+        <div class="layui-col-md-offset2 layui-col-md8">
+            <p class="body-title c_grey">健康信息服务平台/健康科普</p>
+            <div class="layui-row hos_container">
+                <div class="layui-col-md9 content_right bd_r">
+                    <div class="kepu_title" id="kepuTitle"></div>
+                    <div style="text-align: center;margin-top: 20px;" class="c_grey">
+                        <span id="kepuTime"></span>&emsp;&emsp;&emsp;&emsp;
+                        【转载】<span id="kepuHospital"></span>
+                    </div>
+                    <hr style="margin-top: 20px;">
+                    <div>
+<!--                        <img src="" id="kepuImg">-->
+                        <p class="kepu_duanluo" id="kepuContent"></p>
+                    </div>
+                    <hr>
+                    <div class="font_e" style="margin-top: 20px;margin-bottom: 15px;">相关推荐</div>
+                    <div id="kepuList" class="body-card layui-row layui-col-space20"></div>
+                </div>
+                <div class="layui-col-md3" style="padding-left: 20px;">
+                    <div class="hospital_name bd_r" id="hospitalDetail" style="margin-bottom: 20px;">
+
+                    </div>
+                    <div class="kepu_box">
+                        <div>他最近的文章</div>
+                        <ul class="kepu_list" id="recentArticles"></ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script>
+   layui.use('form', function() {
+      var form = layui.form
+         , layer = layui.layer
+      layui.layer.load();
+      //获取科普id和医院id
+      var kepuId = localStorage.getItem('kepuId');
+      var hospitalId = localStorage.getItem('hospitalId');
+      console.log(hospitalId + '11')
+      var jsonParam = {
+         startTime: '', // 起始时间
+         endTime: '', // 结束时间
+         hospitalId: hospitalId,
+      };
+      if (hospitalId === 'undefined') {
+         $('#hospitalDetail').hide();
+         jsonParam.hospitalId = 0;
+         getKepuList();
+      } else {
+         getHospitalDetail();
+         jsonParam.hospitalId = hospitalId;
+         getKepuList();
+      }
+      // 查询科普详情
+      getPatientList();
+
+      function getPatientList() {
+         layui.layer.closeAll()
+         $(".showLoading").css("opacity", '1')
+         var jsonParam = {
+            id: kepuId
+         };
+         $.ajax({
+            type: 'get',
+            dataType: "jsonp",
+            jsonp: "callback",//服务端用于接收
+            async: false,
+            contentType: 'application/json',
+            url: roadPath + '/reg/healthEducateInfo/getHealthEducateInfo',
+            data: jsonParam,
+            success: function (resultMsg) {
+               if (resultMsg.retCode == 0) {
+                  if (!resultMsg.data.hospitalName) {
+                     resultMsg.data.hospitalName = '卫健委';
+                  }
+                  var kepuTitle = resultMsg.data.title;
+                  var kepuTime = resultMsg.data.updateTime;
+                  // var kepuImg = resultMsg.data.imageUrl;
+                  var kepuContent = resultMsg.data.content;
+                  var kepuHospital = resultMsg.data.hospitalName;
+                  $('#kepuTitle').html(kepuTitle);
+                  $('#kepuTime').html(kepuTime);
+                  // $('#imageUrl').attr('src',kepuImg);
+                  $('#kepuContent').html(kepuContent);
+                  $('#kepuHospital').html(kepuHospital);
+               }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+               alert('加载资源失败');
+            }
+         });
+      }
+
+      // 查询相关推荐
+      function getKepuList() {
+
+         $.ajax({
+            type: 'get',
+            dataType: "jsonp",
+            jsonp: "callback",//服务端用于接收
+            async: false,
+            contentType: 'application/json',
+            url: roadPath + '/reg/healthEducateInfo/getHealthEducateInfoList',
+            data: jsonParam,
+            success: function (resultMsg) {
+               layui.layer.closeAll()
+               $(".showLoading").css("opacity", '1')
+               if (resultMsg.retCode == 0) {
+                  var html = "";
+                  var html1 = '';
+                  // 随机展示4个健康科普
+                  var dataList = resultMsg.data.list;
+                  var dataLength = parseInt(dataList.length);
+                  if (dataLength < 5) {
+                     $.each(dataList, function (i, item) {
+                        if (!item.hospitalName) {
+                           item.hospitalName = '卫健委';
+                        }
+                        // levelTypeText
+                        html +=
+                           '<div class="doctor-card layui-col-md6" data-ids="' + item.id + '" data-hos="' + item.hospitalId + '">' +
+                           '<div class="docCard-box">' +
+                           '<div class="docCard-pic">' +
+                           '<img src="' + item.imageUrl + '" alt="">' +
+                           '</div>' +
+                           '<div class="health-info">' +
+                           '<div class="health-tit">' +
+                           '<span>' + item.title + '</span>' +
+                           '</div>' +
+                           '<div class="health-from">' + item.hospitalName + '</div>' +
+                           '</div>' +
+                           '<div class="clear"></div>' +
+                           '</div>' +
+                           '</div>';
+                     });
+                     $("#kepuList").append(html);
+                  } else {
+                     var newArr = [];
+
+                     function random(min, max) {
+                        return Math.floor((max - min) * Math.random()) + min;
+                     }
+
+                     function getRandomArr(len, start, end) {
+                        let arr = [];
+                        while (arr.length < len) {
+                           let num = random(start, end);
+                           if (arr.indexOf(num) == -1) {
+                              arr.push(num);
+                           }
+                        }
+                        return arr;
+                     }
+
+                     const result = getRandomArr(4, 0, dataLength);
+                     $.each(result, function (i, item) {
+                        newArr.push(dataList[item])
+                     });
+                     $.each(newArr, function (i, item) {
+                        if (!item.hospitalName) {
+                           item.hospitalName = '卫健委';
+                        }
+                        // levelTypeText
+                        html +=
+                           '<div class="doctor-card layui-col-md6" data-ids="' + item.id + '" data-hos="' + item.hospitalId + '">' +
+                           '<div class="docCard-box">' +
+                           '<div class="docCard-pic">' +
+                           '<img src="' + item.imageUrl + '" alt="">' +
+                           '</div>' +
+                           '<div class="health-info">' +
+                           '<div class="health-tit">' +
+                           '<span>' + item.title + '</span>' +
+                           '</div>' +
+                           '<div class="health-from">' + item.hospitalName + '</div>' +
+                           '</div>' +
+                           '<div class="clear"></div>' +
+                           '</div>' +
+                           '</div>';
+                     });
+                     $("#kepuList").append(html);
+                  }
+
+                  // 展示最近6个文章
+                  var dataList1 = resultMsg.data.list.slice(-6);
+                  $.each(dataList1, function (i, item) {
+                     // levelTypeText
+                     html1 += '<li title="' + item.title + '" data-ids="' + item.id + '" data-hos="' + item.hospitalId + '">' +
+                        '<i class="iconfamily iconicon_news"></i>&nbsp;' + item.title +
+                        '</li>';
+                  });
+                  $("#recentArticles").append(html1);
+               }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+               alert('加载资源失败');
+            }
+         });
+      }
+
+      $('#recentArticles').on('click', 'li', function () {
+         var kepuId = $(this).attr("data-ids");
+         var hospitalId = $(this).attr("data-hos");
+         localStorage.setItem("kepuId", kepuId);
+         localStorage.setItem("hospitalId", hospitalId);
+         window.location.href = "healthScienceDetails.html";
+      });
+      $('#kepuList').on('click', '.doctor-card', function () {
+         var kepuId = $(this).attr("data-ids");
+         var hospitalId = $(this).attr("data-hos");
+         localStorage.setItem("kepuId", kepuId);
+         localStorage.setItem("hospitalId", hospitalId);
+         window.location.href = "healthScienceDetails.html";
+      });
+      // 获取医院详细
+      // getHospitalDetail();
+      function getHospitalDetail() {
+         var jsonParam = {
+            id: hospitalId //医院详细获取id
+         };
+         $.ajax({
+            type: 'get',
+            dataType: "jsonp",
+            jsonp: "callback",//服务端用于接收
+            async: false,
+            contentType: 'application/json',
+            url: roadPath + '/reg/appoint/getHospitalDetail',
+            data: jsonParam,
+            success: function (resultMsg) {
+               layui.layer.closeAll()
+               $(".showLoading").css("opacity", '1')
+               if (resultMsg.retCode == 0) {
+                  var html = "";
+                  var item = resultMsg.data;
+                  html += '<div><img src="' + item.imageUrl + '" alt="" class="bd_r"></div>' +
+                     '<div class="mar_t font_e">' + item.name + '</div>' +
+                     '<div class="mar_t c_grey">' + item.telephone + '</div>' +
+                     '<div class="mar_t">' +
+                     '<button type="button" class="layui-btn layui-btn-normal layui-btn-sm" style="background: #3C89F4" id="goHomepage" data-ids="' + item.id + '">去他主页</button>' +
+                     '</div>';
+                  $("#hospitalDetail").html(html);
+               }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+               alert('加载资源失败');
+            }
+         });
+      }
+
+      // 去医院主页
+      $('#hospitalDetail').on('click', '#goHomepage', function () {
+         window.location.href = "healthScienceHospitalList.html";
+      })
+   })
+</script>
+</html>

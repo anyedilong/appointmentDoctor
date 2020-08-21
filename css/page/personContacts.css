@@ -1,0 +1,160 @@
+.lxr-card {
+    padding: 15px 5px 15px 15px;
+    height: 110px;
+    border: 1px solid #F5F5F5;
+    color: #757575;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 100;
+    background: #FFFFFF;
+}
+.moren-lxr {
+    position: absolute;
+    top: 0;
+    right: 0;
+    /*background: #fda028;*/
+    /*color: #FFFFFF;*/
+    height: 24px;
+    text-align: center;
+    /*padding: 0 5px;*/
+    border-radius: 4px;
+    display: block;
+}
+.card-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+}
+.lxr-card:hover {
+    border-color: #3A86F3;
+}
+.lxr-card:hover .moren-lxr {
+    display: none;
+}
+.lxr-card:hover .card-btn {
+    display: block;
+}
+.lxr-row {
+    margin-bottom: 10px;
+}
+.lxr-row i {
+    width: 36px;
+    text-align: center;
+    color: #5ACCFF;
+    font-size: 16px;
+    float: left;
+    margin-right: 10px;
+}
+.lxr-img {
+    width: 34px;
+    height: 34px;
+    padding: 4px;
+    border-radius: 50%;
+    float: left;
+    overflow: hidden;
+}
+.lxr-imgm {
+    background: #F0FCF9;
+}
+.lxr-imgw {
+    background: #FDF0AB;
+}
+.lxr-img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.lxr-info {
+    margin-left: 10px;
+    float: left;
+}
+.lxr-name {
+    font-size: 14px;
+    color: #323231;
+}
+.lxr-add {
+    text-align: center;
+    height: 36px;
+    line-height: 36px;
+    width: 130px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -18px;
+    margin-left: -65px;
+    color: #CCCCCC;
+}
+.lxr-add span {
+    float: right;
+    font-size: 16px;
+}
+.lxr-addIcon {
+    width: 36px;
+    height: 36px;
+    float: left;
+    font-size: 34px;
+}
+.lxr-addPage, .lxr-listPage {
+    min-height: 800px;
+}
+.lxr-addPage {
+/*.lxr-listPage {*/
+    display: none;
+}
+.layui-form-item {
+    margin-bottom: 20px;
+}
+.layui-input, .layui-form-label, .layui-input-block {
+    height: 32px;
+    line-height: 32px;
+    font-size: 12px;
+    color: #757575;
+}
+.layui-form-label {
+    width: 70px;
+    color: #323231;
+    padding: 0px 15px;
+}
+.layui-input-block {
+    margin-left: 100px;
+}
+.layui-input, .layui-textarea {
+    border-color: #EAF2FE;
+}
+.layui-textarea {
+    resize: none;
+    height: 2em;
+}
+.form-btn {
+    margin-top: 50px;
+}
+.my-checkbox {
+    height: 32px;
+    line-height: 32px;
+    cursor: pointer;
+}
+.my-checkbox>div {
+    display: none;
+}
+.my-checked {
+    display: block !important;
+}
+.my-checkbox .my-label{
+    float: left;
+}
+.my-checkbox i{
+    float: left;
+    font-size: 20px;
+    color: #EAF2FE;
+    margin-right: 10px;
+}
+.checkdiv2, .checkdiv2 i{
+    color: #3A86F3
+}
+/*.addrSel .layui-unselect.layui-form-select {*/
+    /*width: 24%;*/
+    /*margin-right: 1%;*/
+    /*float: left;*/
+/*}*/

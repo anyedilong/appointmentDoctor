@@ -1,0 +1,189 @@
+.head-box {
+    width: 100%;
+}
+/*顶部欢迎登录条*/
+.head-bar {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background: #EDEDED;
+    color: #757575;
+}
+.headBar-inner {
+    height: 100%;
+}
+.login-box {
+    margin-right: 34px;
+}
+.yilogin, .weilogin {
+    display: none;
+}
+.yilogin {
+    position: relative;
+}
+.yilogin:hover .login-ul {
+    display: block;
+}
+.login-ul {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    background: #FFFFFF;
+    border: 1px solid #EDEDED;
+    line-height: 32px;
+    padding: 5px 0px 4px;
+    width: 100px;
+    left: 50%;
+    margin: -50px;
+    top: 90px;
+}
+.login-li {
+    padding: 0 15px;
+    cursor: pointer;
+}
+.login-li:hover {
+    background: #3A86F3;
+    color: #FFFFFF;
+}
+/*头部网站名字和搜索*/
+.head-tit {
+    width: 100%;
+}
+.headTit-inner {
+    padding: 30px 0;
+}
+.headTit-left {
+    width: 50%;
+}
+.logo {
+    width: 64px;
+    height: 64px;
+    margin-right: 10px;
+}
+.logo img {
+    width: 100%;
+    height: 100%;
+}
+.tit-txt {
+}
+.head-tit-bg {
+    color: #323231;
+    /*ui图上是28px*/
+    font-size: 24px;
+    margin-top: 5px;
+}
+.head-tit-sm {
+    color: #757575;
+    font-size: 14px;
+}
+.headTit-right {
+    width: 50%;
+}
+.headinp-tab {
+    font-size: 16px;
+}
+.headinp-tab li {
+    padding-bottom: 16px;
+    margin: 0 20px;
+    cursor: pointer;
+    position: relative;
+}
+.headinp-tab li img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -8px;
+    display: none;
+}
+.inp-liact {
+    color: #5DA2F9;
+}
+.inp-liact>img {
+    display: block !important;
+}
+.headinp-box {
+    width: 100%;
+    height: 40px;
+    position: relative;
+    /*background: red;*/
+}
+.headinp-inp, .headinp-btn {
+    position: absolute !important;
+}
+.headinp-inp {
+    width: 85%;
+    height: 38px;
+    border: 1px solid #3A86F3;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius:4px;
+    overflow: hidden;
+}
+.headinp-inp input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    text-indent: 1em;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 10px;
+}
+.headinp-btn {
+    right: 0;
+    width: 16%;
+    height: 40px;
+    line-height: 40px;
+    background: #3A86F3;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius:4px;
+    /*margin-left: -1%;*/
+}
+/*头部导航tab切换*/
+.head-tab {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background: #3A86F3;
+    color: #FFFFFF;
+}
+.headTab-ul {
+    width: 100%;
+    height: 60px;
+}
+.headTab-ul li {
+    width: 20%;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+}
+.headTab-ul li img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -8px;
+    display: none;
+}
+.tab-liact {
+    background: #1F73EB;
+}
+.tab-liact>img {
+    display: block !important;
+}
+.headTab-ul li:hover {
+    background: rgba(31, 115, 235, 0.35);
+}
+/*登录*/
+.layui-layer-login .layui-layer-title {
+    background: none;
+    border: none;
+}
+.layui-layer-login.layui-layer {
+    border-radius: 10px !important;
+}

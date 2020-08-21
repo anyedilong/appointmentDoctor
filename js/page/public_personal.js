@@ -1,0 +1,18 @@
+document.writeln("<div class=\'hospital_name bd_r personal_left\'>");
+document.writeln("                        <div id=\'logined\' style=\'height: auto;\'></div>");
+document.writeln("                        <div id=\'noLogin\'>");
+document.writeln("                            <div style=\'height: auto;\'>");
+document.writeln("                                <img src=\'../img/moren.png\' alt=\'\'>");
+document.writeln("                            </div>");
+document.writeln("                            <div style=\'margin-top: 20px;\'>");
+document.writeln("                                <span class=\'hospital_tag cursorP\' style=\'background: #FBC47D;\' id=\'goLogin\'>去登陆</span>");
+document.writeln("                            </div>");
+document.writeln("                        </div>");
+document.writeln("                        <ul class=\'personal_list\'>");
+document.writeln("                            <li class=\'personal_selected\'><a href=\'changePhone.html\'>更换手机号</a></li>");
+document.writeln("                            <li><a href=\'changePassword.html\'>修改密码</a></li>");
+document.writeln("                            <li><a href=\'personContacts.html\'>常用联系人</a></li>");
+document.writeln("                            <li><a href=\'myAppointment.html\'>我的预约</a></li>");
+document.writeln("                            <li><a href=\'attendedDoctor.html\'>已关注医生</a></li>");
+document.writeln("                        </ul>");
+document.writeln("                    </div>");

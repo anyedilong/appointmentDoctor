@@ -1,0 +1,143 @@
+/*layui选项卡样式修改*/
+.layui-tab{
+    margin: 0;
+}
+.layui-tab-brief>.layui-tab-title .layui-this {
+    color: #3A86F3;
+}
+.layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after{
+    border-bottom: 2px solid #3A86F3;
+}
+.layui-tab-content{
+    padding: 20px 0;
+}
+.layui-form{
+    width: 160px;
+}
+.layui-input-block{
+   margin-left: 0;
+}
+.app_head{
+    height: 30px; line-height: 30px;
+    background: #F5F5F5;
+}
+.app_head li div{
+    text-align: center;
+}
+.width_t{
+    width: 40%;
+}
+.width_s{
+    width: 20%;
+    text-align: center;
+}
+.cont_head{
+    height: 40px; line-height: 40px;
+    background: #D1F3FF;
+    padding: 0 10px;
+    border:1px solid #BCEDF7;
+}
+.content_d{
+    padding: 0 10px;
+    border:1px solid #BCEDF7;
+    border-top: none;
+}
+.content_d li{
+    /*float: left;*/
+}
+li.width_t{
+    cursor: pointer;
+}
+li.width_t, li.width_s {
+    padding: 10px 0;
+}
+.content_d li:not(:first-child){
+    box-sizing: border-box;
+    border-left: 1px solid #D6F1FF;
+}
+.docCard-pic{
+    width: 75px;
+    height: 75px;
+    padding-top: 0;
+}
+.docCard-info {
+    width: 50%;
+}
+.heig{
+    height: 95px;
+    display: table;
+}
+.pos_h{
+    display: table-cell;
+    vertical-align: middle;
+}
+ .quxiao , .site-demo-button{
+    cursor: pointer;
+}
+.layui-laypage .layui-laypage-curr .layui-laypage-em{
+    background: #5DA2F9 !important;
+}
+.layui-laypage a:hover, .layui-laypage span:hover{
+    color: #5DA2F9 !important;
+}
+.yuyueCard {
+    margin-bottom: 10px;
+}
+/*.posbtn_box > div > span {*/
+    /*cursor: pointer;*/
+/*}*/
+.posbtn_box > div > span.to_hover:hover {
+    color: #3A86F3;
+    cursor: pointer;
+}
+.posbtn_box > div:nth-child(1) {
+    margin-bottom: 10px;
+}
+/*layui btn*/
+.layui-btn{
+    background: #fff;
+    font-size: 12px;
+    height: auto;
+    line-height: normal;
+    padding: 0;
+}
+.layui-btn:hover{
+    color: #3A86F3;
+}
+.layui-layer{
+    width: auto !important;
+}
+.wen_h{
+    display: inline-block;
+    width: 60px;
+}
+.wen_cont{
+    padding-left: 20px;
+    /*padding-right: 60px;*/
+}
+.font_title{
+    padding: 10px 0 5px;
+}
+.layui-layer-btn{
+    padding: 0 0 30px !important;
+}
+.textarea_q{
+    border: none;
+}
+/*评分*/
+.layui-layer-iframe{
+    width: 500px !important;
+}
+.layui-layer-title{
+    font-size: 18px;
+    color: #323231;
+    font-weight:bold;
+}
+.layui-layer-btn{
+    text-align: center;
+}
+.layui-layer-btn .layui-layer-btn0 {
+    border-color: #FDA028;
+    background-color: #FDA028;
+    color: #fff;
+}

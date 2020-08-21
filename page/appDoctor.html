@@ -1,0 +1,206 @@
+<!--医生主页 appDoctor-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <link rel="stylesheet" href="../css/page/appointment.css">
+    <link rel="stylesheet" href="../css/page/appDoctor.css">
+    <style>
+         .bd_r, .hos-doc-img img, .doctor_tag, .table-tab,.table-hover  {
+            behavior: url(../js/PIE/PIE.htc);
+            position: relative;
+        }
+        .remark {
+            color: #757575;
+            font-size: 12px;
+            margin-top: 20px;
+            line-height: 1.8em;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-row bg_content container font_m main_body showLoading">
+    <div class="layui-col-md-offset2 layui-col-md8">
+        <p class="body-title c_grey">健康信息服务平台/预约挂号/医生主页</p>
+        <div class="layui-row hos_container">
+            <div class="layui-col-md3 content_left">
+                <div class="hospital_name bd_r">
+                    <div class="hos-doc-img">
+                        <img id="imageUrl" src="" alt="">
+                    </div>
+                    <div class="mar_t font_e" id="name"></div>
+                    <div class="mar_t c_grey"><span id="hospitalName"></span> - <span id="deptName"></span></div>
+                    <div class="mar_t">
+                        <span class="doctor_tag tagblue" id="professional"></span>
+                        <!--<span class="doctor_tag tagorange">教授</span>-->
+                    </div>
+                    <div class="guanzhuBtn">
+                        <img src="../img/button_guanzhu.png" alt="">
+                        <!--<img src="../img/button_qxguanzhu.png" alt="">-->
+                        <!--<img src="../img/button_yguanzhu.png" alt="">-->
+                    </div>
+                </div>
+                <ul class="hos_num">
+                    <li class="fl">
+                        <span>预约</span>
+                        <div id="subNum">0</div>
+                    </li>
+                    <li class="fl">
+                        <span>关注</span>
+                        <div id="concernNum">0</div>
+                    </li>
+                    <li class="clear hei_clear"></li>
+                </ul>
+                <div class="hos_introduce bd_r">
+                    <p>医生简介</p>
+                    <div class="font_s q_grey intro_d" style="word-wrap:break-word;" id="introduce"></div>
+                </div>
+                <div class="contact_us bd_r">
+                    <p>医生擅长</p>
+                    <div class="font_s q_grey intro_d" style="word-wrap:break-word;" id="depict"></div>
+                </div>
+            </div>
+            <div class="layui-col-md9 content_right bd_r">
+                <div class="layui-row" style="padding-top: 10px">
+                    <div class="layui-col-md2 appDoc-tit">我的排班信息</div>
+                    <div class="layui-col-md-offset2 layui-col-md8">
+                        <form class="layui-form layui-row" action="">
+                            <!--<div class="layui-col-md6">-->
+                                <!--<div class="appDoc-form">-->
+                                    <!--<select name="modules" id="hospital" lay-filter="hospitalSel" lay-search>-->
+                                        <!--&lt;!&ndash;<option value="">搜索医院</option>&ndash;&gt;-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <div class="layui-col-md-offset5 layui-col-md7">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">科室</label>
+                                    <div class="appDoc-form layui-input-block">
+                                        <select name="modules" id="keshi" lay-filter="keshiSel" lay-search>
+                                            <!--<option value="">搜索科室</option>-->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <table class="layui-table myTable">
+                        <colgroup>
+                            <col width="60">
+                            <col width="100">
+                            <col width="100">
+                            <col width="100">
+                            <col width="100">
+                            <col width="100">
+                            <col width="100">
+                            <col width="100">
+                            <col>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>
+                                <div>周五</div>
+                                <div>12/6</div>
+                            </th>
+                            <th>
+                                <div>周六</div>
+                                <div>12/6</div>
+                            </th>
+                            <th>
+                                <div>周日</div>
+                                <div>12/6</div>
+                            </th>
+                            <th>
+                                <div>周五</div>
+                                <div>12/6</div>
+                            </th>
+                            <th>
+                                <div>周五</div>
+                                <div>12/6</div>
+                            </th>
+                            <th>
+                                <div>周五</div>
+                                <div>12/6</div>
+                            </th>
+                            <th>
+                                <div>周五</div>
+                                <div>12/6</div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="morning">
+                            <!--<td class="leftTit">上午</td>-->
+                            <!--<td class="table-tabgray">-->
+                                <!--<div class="table-tab ">可预约</div>-->
+                                <!--<div class="table-info">截止预约</div>-->
+                                <!--<div class="table-hover">-->
+                                    <!--<p>出诊时间：2019年12月9日上午</p>-->
+                                    <!--<p>挂号费：20元(到院付)</p>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td class="table-taborg">-->
+                                <!--<div class="table-tab">可预约</div>-->
+                                <!--<div class="table-hover">-->
+                                    <!--<p>出诊时间：2019年12月9日上午</p>-->
+                                    <!--<p>挂号费：20元(到院付)</p>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td></td>-->
+                            <!--<td class="table-taborg">-->
+                                <!--<div class="table-tab">可预约</div>-->
+                                <!--<div class="table-info">仅剩3个</div>-->
+                                <!--<div class="table-hover">-->
+                                    <!--<p>出诊时间：2019年12月9日上午</p>-->
+                                    <!--<p>挂号费：20元(到院付)</p>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                        </tr>
+                        <tr class="afternoon">
+                            <!--<td class="leftTit">下午</td>-->
+                            <!--<td class="table-tabgray">-->
+                                <!--<div class="table-tab">可预约</div>-->
+                                <!--<div class="table-info">截止预约</div>-->
+                            <!--</td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                        </tr>
+                        <tr class="nightDiag">
+                            <!--<td class="leftTit">晚上</td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="layui-row remark">
+                    <div>出诊说明：</div>
+                    <div class="out_desc"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script src="../js/commen.js"></script>
+<script src="../js/page/appDoctor.js"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+</html>

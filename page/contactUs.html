@@ -1,0 +1,176 @@
+<!--contactUs.html 联系我们-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <link rel="stylesheet" href="../css/page/index.css">
+    <style>
+        .bodyBanner-form, .form-btn button, .docCard-box, .docCard-pic ,.bd_r{
+            behavior: url(../js/PIE/PIE.htc);
+            position: relative;
+        }
+        .aboutus-banner{
+            /*background: url(../img/bannerc_contact.png) no-repeat top center;*/
+            background: url("../img/contentbanner.png") no-repeat top center;
+            width: 100%;
+            height: 450px;
+            margin-bottom: 30px;
+           background-size: 100% 100%;
+        }
+        .content_right{
+            background: #fff;
+            min-height: 600px;
+        }
+        .left_box {
+            height: 580px;
+            background: #FFFFFF;
+        }
+        .content_right{
+            padding: 34px;
+        }
+        .left_box{
+            padding-top: 20px;
+        }
+        .left_box>div , .feed_back>div{
+            height: 44px;line-height: 44px;
+            text-align: center;
+        }
+        .active{
+            background: #3A86F3;
+        }
+        .active a{
+            color: #fff;
+        }
+        .title{
+            margin-bottom: 30px;
+        }
+        .contact-ul {
+
+        }
+        .contact-li {
+            padding: 20px 10px;
+            /*border-bottom: 1px solid #EDEDED;*/
+        }
+        .liborder {
+            border-bottom: 1px solid #EDEDED;
+        }
+        .contact-li-last {
+            border: none;
+        }
+        .contact-li .contact-info{
+            margin-bottom: 20px;
+            color: #999999;
+        }
+        .contact-box {
+            height: 60px;
+        }
+        .contact-box50 {
+            width: 50%;
+            height: 100%;
+        }
+        .contact-icon {
+            height: 60px;
+            width: 60px;
+            margin-right: 10px;
+            text-align: center;
+            font-size: 60px;
+            line-height: 60px;
+        }
+        .contact-boxinfo {
+            line-height: 30px;
+        }
+        /*.li-content {*/
+            /*height: 360px;*/
+            /*overflow: auto;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<div class="body-box bg_content showLoading">
+    <div class="aboutus-banner"></div>
+    <div class="body-con layui-row q_grey font_m">
+        <div class="bodyCon-inner layui-col-md-offset2 layui-col-md8">
+            <div class="layui-row hos_container">
+                <div class="layui-col-md3 content_left">
+                    <div class="left_box bd_r">
+                        <div class="active"><a href="contactUs.html" class="q_grey">联系我们</a></div>
+                        <div><a href="Feedback.html" class="q_grey">意见反馈</a></div>
+                    </div>
+                </div>
+                <div class="layui-col-md9 content_right bd_r">
+                    <div class="contactUs">
+                        <ul class="contact-ul">
+                            <li class="contact-li liborder">
+                                <p class="title main_body font_l">用户服务</p>
+                                <div class="contact-box">
+                                    <div class="contact-box50 fl">
+                                        <div class="contact-icon fl">
+                                            <i class="iconfamily" style="color: #3A86F3">&#xe609;</i>
+                                        </div>
+                                        <div class="contact-boxinfo fl">
+                                            <div class="blue font_m">售后服务热线</div>
+                                            <div class="font_e main_body" id="afterSalePhone"></div>
+                                        </div>
+                                    </div>
+                                    <div class="contact-box50 fl">
+                                        <div class="contact-icon fl">
+                                            <i class="iconfamily" style="color: #2BC807">&#xe608;</i>
+                                        </div>
+                                        <div class="contact-boxinfo fl">
+                                            <div class="blue font_m">热线</div>
+                                            <div class="font_e main_body" id="settledInPhone"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="contact-li li-content" id="content">
+                                <!--<p class="title main_body font_l">企业服务</p>-->
+                                <!--<div class="contact-info">E-mail：boletong@sdboletong.com</div>-->
+                                <!--<p class="title main_body font_l">企业地址</p>-->
+                                <!--<div class="contact-info">山东省济南市高新去舜华路2000号舜泰广场6号楼401A</div>-->
+                                <!--<p class="title main_body font_l">企业名称</p>-->
+                                <!--<div class="contact-info">山东博乐通信息科技有限公司</div>-->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script type="text/javascript" >
+    $(function () {
+       layui.use(['layer'], function () {
+          layui.layer.load();
+          var jsonParam = {};
+          $.ajax({
+             type: 'get',
+             dataType: "jsonp",
+             jsonp: "callback",//服务端用于接收
+             async: false,
+             contentType: 'application/json',
+             url: roadPath + '/reg/sysCallUs/getCallInfo',
+             data: jsonParam,
+             success: function (resultMsg) {
+                // 暂定 后台出来后数据进行替换
+                // $('.art-con').html(resultMsg.data[0].content);
+                $('#content').html(resultMsg.data[0].content);
+                $('#afterSalePhone').html(resultMsg.data[0].afterSalePhone);
+                $('#settledInPhone').html(resultMsg.data[0].settledInPhone);
+                console.log(resultMsg.data[0]);
+             },
+             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('加载资源失败');
+             }
+          });
+          layui.layer.closeAll()
+          $(".showLoading").css("opacity",'1')
+       })
+    });
+</script>
+</html>

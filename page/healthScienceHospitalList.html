@@ -1,0 +1,204 @@
+<!--预约挂号医院详细 appointmentDoctor-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <link rel="stylesheet" href="../css/page/appointment.css">
+    <link rel="stylesheet" href="../css/page/appConfirm.css">
+</head>
+<body>
+    <div class="layui-row bg_content container font_m main_body">
+        <div class="layui-col-md-offset2 layui-col-md8">
+            <p class="body-title c_grey">预约诊疗服务平台/健康科普</p>
+            <div class="layui-row hos_container">
+                <div class="layui-col-md9 content_right bd_r personal_right">
+                    <div class="font_e" style="margin-bottom: 15px;">相关推荐</div>
+                    <div id="kepuList" class="body-card layui-row layui-col-space20"></div>
+                    <div id="demo7"></div>
+                </div>
+                <div class="layui-col-md3" style="padding-left: 20px;min-height: 740px;" id="hospitalDetail">
+                    <div class="hospital_name bd_r">
+                        <div>
+                            <img src="../img/hospital.png" alt="">
+                        </div>
+                        <div class="mar_t font_e">张医生</div>
+                        <div class="mar_t c_grey">0531-55699519</div>
+                        <div class="mar_t">
+                            <a href="appHospital.html">
+                                <button type="button" class="layui-btn layui-btn-normal layui-btn-sm" style="background: #3C89F4">预约挂号</button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hos_introduce bd_r" style="margin-top: 20px;">
+                        <p>医院简介</p>
+                        <div class="font_s q_grey intro_d">医生简介医生简介医生简介医生简介医生简介介 医生简介医生简介医生简介医生简介医生简介介 医生简介医生简介医生简介医生简介医生简</div>
+                    </div>
+                    <div class="contact_us bd_r">
+                        <p>联系我们</p>
+                        <ul class="font_s q_grey contact_li">
+                            <li><i class="iconfamily iconStyle">&#xe63a;</i>15165197890</li>
+                            <li>
+                                <i class="iconfamily iconStyle">&#xe61e;</i>山东省济南市高新区舜华路南高新区舜 华路南
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script>
+    $(function () {
+        layui.use(['laypage', 'layer'], function() {
+            var laypage = layui.laypage;
+            // 医院唯一标识
+            var hospitalId = localStorage.getItem("hospitalId");
+            var kepuTotal='';
+            var jsonParam = {
+                startTime: '', // 起始时间
+                endTime: '', // 结束时间
+                pageSize:'10',
+                hospitalId:hospitalId
+            };
+            setTimeout(function () {
+                // 分页
+                laypage.render({
+                    elem: 'demo7'
+                    , count: parseInt(kepuTotal)
+                    , limit: 10
+                    , curr:1
+                    , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                    , jump: function (obj) {
+                        jsonParam.pageNo = obj.curr;
+                        getKepuList()
+                    }
+                });
+            },1000);
+    // 查询相关推荐
+    getKepuList();
+    function getKepuList () {
+        $.ajax({
+            type: 'get',
+            dataType: "jsonp",
+            jsonp: "callback",//服务端用于接收
+            async: false,
+            contentType: 'application/json',
+            url: roadPath + '/reg/healthEducateInfo/getHealthEducateInfoList',
+            data: jsonParam,
+            success: function (resultMsg) {
+                if(resultMsg.retCode == 0) {
+                    var html = "";
+                    var dataList = resultMsg.data.list;
+                    kepuTotal = resultMsg.data.count;
+                    $.each(dataList, function (i, item) {
+                        // levelTypeText
+                        html += '<div class="doctor-card layui-col-md6" data-ids="'+item.id+'" data-hos="'+item.hospitalId+'">' +
+                            '<div class="docCard-box">' +
+                            '<div class="docCard-pic">' +
+                            '<img src="' + item.imageUrl + '" alt="">' +
+                            '</div>' +
+                            '<div class="health-info">' +
+                            '<div class="health-tit">' +
+                            '<span>' + item.title + '</span>' +
+                            '</div>' +
+                            '<div class="health-from">' + item.hospitalName + '</div>' +
+                            '</div>' +
+                            '<div class="clear"></div>' +
+                            '</div>' +
+                            '</div>';
+                    });
+                    $("#kepuList").html(html);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('加载资源失败');
+            }
+        });
+    }
+        $('#kepuList').on('click','.doctor-card',function () {
+            var kepuId = $(this).attr("data-ids");
+            var hospitalId = $(this).attr("data-hos");
+            localStorage.setItem("kepuId",kepuId);
+            localStorage.setItem("hospitalId",hospitalId);
+            window.location.href = "healthScienceDetails.html";
+        });
+    // 获取医院详细
+    getHospitalDetail();
+    function getHospitalDetail () {
+        var jsonParam = {
+            id: hospitalId //医院详细获取id
+        };
+        $.ajax({
+            type: 'get',
+            dataType: "jsonp",
+            jsonp: "callback",//服务端用于接收
+            async: false,
+            contentType: 'application/json',
+            url: roadPath + '/reg/appoint/getHospitalDetail',
+            data: jsonParam,
+            success: function (resultMsg) {
+                if(resultMsg.retCode == 0) {
+                    var html = "";
+                    var item = resultMsg.data;
+                    // $.each(resultMsg.data, function (i, item) {
+                    // levelTypeText
+                    html += '<div class="hospital_name bd_r"><div><img src="' + item.imageUrl + '" alt="" class="bd_r"></div>' +
+                        '<div class="mar_t font_e">' + item.name + '</div>' +
+                        '<div class="mar_t c_grey">' + item.telephone + '</div>' +
+                        '<div class="mar_t">' +
+                        '<a href="appHospital.html">'+
+                        '<button type="button" class="layui-btn layui-btn-normal layui-btn-sm" style="background: #3C89F4">预约挂号</button>'+
+                        '</a>'+
+                        '</div></div>' +
+                        '<div class="hos_introduce bd_r" style="margin-top: 20px;">' +
+                        '<p>医院简介</p>' +
+                        '<div class="font_s q_grey intro_d">' + item.introduce + '</div></div>' +
+                        '<div class="contact_us bd_r"><p>联系我们</p><ul class="font_s q_grey contact_li">' +
+                        '<li><i class="iconfamily iconStyle">&#xe63a;</i>' + item.telephone + '</li>' +
+                        '<li><i class="iconfamily iconStyle">&#xe61e;</i>' + item.address + '</li></ul></div>'
+                    // });
+                    $("#hospitalDetail").html(html);
+                    maxNum();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('加载资源失败');
+            }
+        });
+    }
+    // 查看更多
+    function maxNum () {
+        $(".intro_d").each(function () {
+            var maxwidth = 50;//设置最多显示的字数
+            var text = $(this).text();
+            if($(this).text().length > maxwidth){
+                $(this).text($(this).text().replace(/\s*/g,"").substring(0, maxwidth));
+                //如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+                $(this).html($(this).html()+'...'+'<a href="###" class="more_r open-a"> 展开 <i class="iconfamily iconStyle more_r">&#xe62a;</i></a>');
+            };
+            $(this).on('click', '.open-a', function(){
+                // $(this).parent().text(text);//点击“点击展开”，展开全文
+                $(this).parent().html(text + '<br><a href="###" class="more_r close-a"><i class="iconfamily iconStyle more_r">&#xe62b;</i>收起</a>');//点击“点击展开”，展开全文
+            })
+            $(this).on('click', '.close-a', function(){
+                $(this).text($(this).parent().text().replace(/\s*/g,"").substring(0, maxwidth));
+                //如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+                $(this).parent().html($(this).html()+'...'+'<a href="###" class="more_r open-a"> 展开 <i class="iconfamily iconStyle more_r">&#xe62a;</i></a>');
+            })
+            // if ($(this).text().length > maxwidth) {
+            //     $(this).text($(this).text().replace(/\s*/g, "").substring(0, maxwidth));
+            //     $(this).html($(this).html() + "..." + "<a href='###' class=\"more_r\">  <i class=\"iconfamily iconStyle more_r\">&#xe631;</i></a>");//如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+            //
+            // }
+            // $(this).find("a").click(function () {
+            //     $(this).parent().text(text);//点击“点击展开”，展开全文
+            // })
+        })
+    }
+        });
+})
+</script>
+</html>

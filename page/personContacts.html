@@ -1,0 +1,265 @@
+<!--添加常用联系人  personContacts.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <link rel="stylesheet" href="../css/page/personalCenter.css">
+    <link rel="stylesheet" href="../css/page/personContacts.css">
+    <style>
+        .hospital_tag, .form-btn button, .patient_list li, .lxr-img, .lxr-img img, .lxr-card, .bd_r{
+            behavior: url(../js/PIE/PIE.htc);
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-row bg_content container font_m main_body showLoading">
+        <div class="layui-col-md-offset2 layui-col-md8">
+            <p class="body-title c_grey">健康信息服务平台/个人中心</p>
+            <div class="layui-row hos_container">
+                <div class="layui-col-md3 content_left">
+                    <div class="hospital_name bd_r personal_left">
+                        <div id="logined" style="height: auto;"></div>
+                        <div id="noLogin">
+                            <div style="height: auto;">
+                                <img src="../img/moren.png" alt="">
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <span class="hospital_tag cursorP" style="background: #FBC47D;" id="goLogin">去登录</span>
+                            </div>
+                        </div>
+                        <ul class="personal_list">
+                            <li><a href="changePhone.html">更换手机号</a></li>
+                            <li><a href="changePassword.html">修改密码</a></li>
+                            <li class="personal_selected"><a href="personContacts.html">常用联系人</a></li>
+                            <li><a href="myAppointment.html">我的预约</a></li>
+                            <li><a href="attendedDoctor.html">已关注医生</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="layui-col-md9 content_right bd_r personal_right" id="noshuju"></div>
+                <div class="lxr-listPage layui-col-md9 content_right bd_r personal_right" id="personalRight1">
+                    <div class="label_one">
+                        <span class="label">常用联系人</span>
+                    </div>
+                    <div id="lxrList" class="lxrList layui-row layui-col-space20">
+                        <!--<div class="layui-col-md5">-->
+                            <!--<div class="lxr-card">-->
+                                <!--<div class="moren-lxr">-->
+                                    <!--<img src="../img/img_default.png" alt="">-->
+                                <!--</div>-->
+                                <!--<div class="card-btn">-->
+                                    <!--<img class="edit-btn" src="../img/btn_edit.png" alt="">-->
+                                    <!--<img class="delete-btn" src="../img/btn_delete.png" alt="">-->
+                                <!--</div>-->
+                                <!--<div class="lxr-box">-->
+                                    <!--<div class="lxr-row">-->
+                                        <!--<div class="lxr-img lxr-imgm">-->
+                                            <!--<img src="../img/img_sex_m.png" alt="">-->
+                                            <!--&lt;!&ndash;<img src="../img/img_sex_w.png" alt="">&ndash;&gt;-->
+                                        <!--</div>-->
+                                        <!--<div class="lxr-info">-->
+                                            <!--<div class="lxr-name">陈木木</div>-->
+                                            <!--<div class="lxr-id">370711111111111024</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="clear"></div>-->
+                                    <!--</div>-->
+                                    <!--<div class="lxr-row">-->
+                                        <!--<i class="iconfamily">&#xe63a;</i>-->
+                                        <!--<span>15165197890</span>-->
+                                    <!--</div>-->
+                                    <!--<div class="lxr-row">-->
+                                        <!--<i class="iconfamily">&#xe61e;</i>-->
+                                        <!--<span>山东省济南市高新区舜华路南...</span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="lxrList layui-row layui-col-space20">
+                        <div class="layui-col-md5">
+                            <div class="lxr-card" id="goAdd">
+                                <div class="lxr-box">
+                                    <div class="lxr-add">
+                                        <div class="lxr-addIcon">
+                                            <i class="iconfamily">&#xe668;</i>
+                                        </div>
+                                        <span>添加联系人</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lxr-addPage layui-col-md9 content_right bd_r" id="personalRight2">
+                    <div class="label_one">
+                        <span id="goBack"><i class="layui-icon layui-icon-return" style="font-size: 20px; color: #1E9FFF;cursor:pointer;"></i></span>
+                        <span class="label">新增常用联系人</span>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md7">
+                            <form class="layui-form" id="addform" lay-filter="addform" action="">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">姓名</label>
+                                    <div class="layui-input-block">
+                                        <input type="hidden" name="id" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+                                        <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">身份证号</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="sfzh" lay-verify="required|idcard" autocomplete="off" placeholder="请输入18位身份证号码" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">性别</label>
+                                    <div class="layui-input-block">
+                                        <select name="xb" lay-verify="required">
+                                            <option value="">请选择</option>
+                                            <option value="男">男</option>
+                                            <option value="女">女</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">联系电话</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="phone" lay-verify="required|tel" autocomplete="off" placeholder="电话号码/手机号必填项" class="layui-input">
+                                    </div>
+                                </div>
+                                <!--改成联动下拉选项-->
+                                <div class="layui-form-item">
+                                    <!--省/市/区/街道-->
+                                    <label class="layui-form-label">省</label>
+                                    <div class="layui-input-block">
+                                        <select id="addressProvince" lay-filter="addressProvince" name="addressProvince" lay-search>
+                                            <option value="">搜索省</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <!--省/市/区/街道-->
+                                    <label class="layui-form-label">市</label>
+                                    <div class="layui-input-block">
+                                        <select id="addressCity" lay-filter="addressCity" name="addressCity" lay-search>
+                                            <option value="">搜索市</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <!--省/市/区/街道-->
+                                    <label class="layui-form-label">区</label>
+                                    <div class="layui-input-block">
+                                        <select id="addressRegion" lay-filter="addressRegion" name="addressRegion" lay-search>
+                                            <option value="">搜索区</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <!--省/市/区/街道-->
+                                    <label class="layui-form-label">街道</label>
+                                    <div class="layui-input-block">
+                                        <select id="addressStreet" lay-filter="addressStreet" name="addressStreet" lay-search>
+                                            <option value="">搜索街道</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">详细地址</label>
+                                    <div class="layui-input-block" style="height: auto">
+                                        <textarea name="addressDetail" class="layui-textarea" rows="15"
+                                                  placeholder="请输入详细地址信息，如道路，门牌号，小区等信息。"></textarea>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label"></label>
+                                    <div class="layui-input-block">
+                                        <div class="my-checkbox">
+                                            <div class="checkdiv checkdiv1 my-checked">
+                                                <i class="iconfamily">&#xe602;</i>
+                                                <span class="my-label">默认就诊人</span>
+                                            </div>
+                                            <div class="checkdiv checkdiv2" id="regcheck">
+                                                <i class="iconfamily">&#xe600;</i>
+                                                <span class="my-label">默认就诊人</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item form-btn">
+                                    <button id="addBtn" lay-submit lay-filter="addBtn" type="button" class="layui-btn layui-btn-warm">保存</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script src="../js/page/personContacts.js"></script>
+<script>
+   layui.use(['laypage', 'layer'], function() {
+      var laypage = layui.laypage;
+      layui.layer.load();
+      var authToken = localStorage.getItem('authToken');
+      verifyLogin();
+
+      function verifyLogin() {
+         var jsonParam = {
+            // 无参数，通过登录的tocken
+            authToken: authToken
+         };
+         $.ajax({
+            type: 'get',
+            dataType: "jsonp",
+            jsonp: "callback",//服务端用于接收
+            async: false,
+            contentType: 'application/json',
+            url: roadPath + '/reg/user/getUserInfo',
+            data: jsonParam,
+            success: function (resultMsg) {
+               layui.layer.closeAll()
+               $(".showLoading").css("opacity", '1')
+               if (resultMsg.retCode == 0) {
+                  $('#logined').show();
+                  $('#noLogin').hide();
+                  $('#noshuju').hide();
+                  $('#personalRight1').show();
+                  // $('#personalRight2').show();
+                  var html = '';
+                  html += '<div>' +
+                     '<img src="../img/moren_doctor.png" alt="">' +
+                     '</div>' +
+                     '<div class="mar_t font_e">' + resultMsg.data.username + '</div>' +
+                     '<div style="margin-top: 20px;">' +
+                     '<span class="hospital_tag cursorP" style="background: #FBC47D;" id="tuichu">退出</span>' +
+                     '</div>';
+                  $('#logined').html(html)
+               } else if (resultMsg.retCode == 1004) {
+                  $('#noLogin').show();
+                  $('#logined').hide();
+                  $('#noshuju').show();
+                  $('#personalRight1').hide();
+                  $('#personalRight2').hide();
+                  denglu();
+               }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+               layui.layer.closeAll()
+               $(".showLoading").css("opacity", '1')
+               console.log(XMLHttpRequest);
+               console.log(textStatus);
+               console.log(errorThrown);
+               alert('加载资源失败');
+            }
+         });
+      }
+   })
+</script>
+</html>

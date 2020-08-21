@@ -1,0 +1,522 @@
+    <!--科室主页 appDepartment-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <link rel="stylesheet" href="../css/page/appointment.css">
+    <style>
+        .docCard-box, .docCard-pic , .bd_r{
+            behavior: url(../js/PIE/PIE.htc);
+            position: relative;
+        }
+        .select_label{
+            border: none;
+        }
+        .messagea_s{
+            padding: 0 5px;
+            margin: 0!important;
+        }
+        .doc-shanchang {
+            line-height: 1.2em;
+            height: 2.4em;
+            overflow: hidden;
+        }
+        .shanc{
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-row bg_content container font_m main_body showLoading">
+    <div class="layui-col-md-offset2 layui-col-md8">
+        <p class="body-title c_grey">健康信息服务平台/预约挂号</p>
+        <div class="layui-row hos_container">
+            <div class="layui-col-md3 content_left">
+                <div class="hospital_name bd_r">
+                    <div>
+                        <img src="../img/hospital.png" alt="" class="bd_r img_u">
+                    </div>
+                    <div class="mar_t font_e keshi">内科</div>
+                    <div class="mar_t c_grey hosName">某某区人民医院</div>
+                    <div class="mar_t">
+                        <span class="hospital_tag">三级甲等</span>
+                    </div>
+                </div>
+                <ul class="hos_num">
+                    <li class="fl">
+                        <span>医生数</span>
+                        <div class="doctorNum">56</div>
+                    </li>
+                    <li class="fl">
+                        <span>预约量</span>
+                        <div class="appNum">5236</div>
+                    </li>
+                    <li class="clear hei_clear"></li>
+                </ul>
+                <div class="hos_introduce bd_r">
+                    <p>科室介绍</p>
+                    <div class="font_s q_grey intro_d">
+                        医生简介
+                    </div>
+                </div>
+                <div class="contact_us bd_r">
+                    <p>联系我们</p>
+                    <ul class="font_s q_grey contact_li">
+                        <li><i class="iconfamily iconStyle">&#xe63a;</i><span class="telep">15165197890</span></li>
+                        <li><i class="iconfamily iconStyle">&#xe61e;</i><span class="address">山东省济南市高新区舜华路南高新区舜华路南</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layui-col-md9 content_right bd_r">
+                <div>
+                    <ul>
+                        <li class="label_container">
+                            <div class="fl label_one text_r">
+                                <span class="label">科室门诊：</span>
+                            </div>
+                            <div class="fl label_two depList">
+                                <span class="bg_left_active label select_label">全部</span>
+                                <!--<span class="label select_label">马龙区</span>-->
+                            </div>
+                            <div class="fr label_one toMore">
+                                <span class="label blue bg_more">展开全部</span>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="message_list isShow label_dep">
+                    <div class="hops">
+                        <ul class="messagea_s fl">
+                            <li class="fl mes_left_active">全部医生</li>
+                            <li class="fl">排班医生</li>
+                            <li class="fl">有号医生</li>
+                            <li class="clear remove_c"></li>
+                        </ul>
+                        <div class="layui-form fr">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <input type="text" class="layui-input q_grey" id="dateTime" placeholder="yyyy-MM-dd">
+                                        <i class="iconfamily iconTime">&#xe616;</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="body-card layui-row layui-col-space20 toDoctor">
+                        <!--<div class="doctor-card layui-col-md6">-->
+                            <!--<div class="docCard-box">-->
+                                <!--<div class="docCard-pic">-->
+                                    <!--<img src="../img/doctor.png" alt="">-->
+                                <!--</div>-->
+                                <!--<div class="docCard-info">-->
+                                    <!--<div class="doc-name">-->
+                                        <!--<span>张医生</span>-->
+                                        <!--<span>主任医师</span>-->
+                                        <!--<span>教授</span>-->
+                                    <!--</div>-->
+                                    <!--<div class="doc-hospital">-->
+                                        <!--马龙区人民医院   儿童消化内科-->
+                                    <!--</div>-->
+                                    <!--<div>-->
+                                        <!--擅长：小二呼吸系统、消化系统、积食、 发烧...-->
+
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="clear"></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                    <div id="laypage"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<!--<script src="../js/page/appointment.js"></script>-->
+<script type="text/javascript">
+    $(function() {
+        layui.use(['laypage','layer'], function() {
+           layui.layer.load();
+            var $ = layui.$;
+            var laypage = layui.laypage;
+            var pageobj = {
+                elem: 'laypage',
+                count: 0, //数据总数
+                limit: 10,  //得到每页显示的条数
+                curr: 1,  //得到当前页，以便向服务端请求对应页的数据。
+                layout: ['count', 'prev', 'page', 'next']
+            };
+            // 科室唯一标识
+            var departmentId = localStorage.getItem("departmentId")
+            // 医院唯一标识
+            var hospitalId = localStorage.getItem("hospitalId")
+
+
+            $(".hosName").text(localStorage.getItem("hosName"))
+            $(".hospital_tag").text(localStorage.getItem("hosDj"))
+            $(".telep").text(localStorage.getItem("hosTel"))
+            $(".address").text(localStorage.getItem("hosAdd"))
+            $(".img_u").attr("src",localStorage.getItem("img_u"))
+
+            // 获取科室详细
+            getDepartmentDetail();
+            function getDepartmentDetail () {
+                var jsonParam = {
+                    id: hospitalId, //医院详细获取id
+                    code:departmentId
+                };
+                $.ajax({
+                    type: 'get',
+                    dataType: "jsonp",
+                    jsonp: "callback",//服务端用于接收
+                    async: false,
+                    contentType: 'application/json',
+                    url: roadPath + '/reg/appoint/getDepartmentDetail',
+                    data: jsonParam,
+                    success: function (resultMsg) {
+                        if(resultMsg.retCode == 0) {
+                            if(resultMsg.data.introduce !== undefined){
+                                $(".intro_d").text(resultMsg.data.introduce)
+                            }
+                            if(resultMsg.data.name !== undefined){
+                                $(".keshi").text(resultMsg.data.name)
+                            }
+                            maxNum();
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert('加载资源失败');
+                    }
+                });
+               layui.layer.closeAll()
+               $(".showLoading").css("opacity",'1')
+            }
+
+            // 获取医生数和预约量
+            getNum()
+            function getNum(){
+                var jsonParam = {
+                    hospitalId: hospitalId, //医院详细获取id
+                    deptCode:departmentId
+                };
+                $.ajax({
+                    type: 'get',
+                    dataType: "jsonp",
+                    jsonp: "callback",//服务端用于接收
+                    async: false,
+                    contentType: 'application/json',
+                    url: roadPath + '/reg/appoint/getDoctorNumAndSubNumByDept',
+                    data: jsonParam,
+                    success: function (resultMsg) {
+                        if(resultMsg.retCode == 0) {
+                            $(".doctorNum").text(resultMsg.data.doctorNum)
+                            $(".appNum").text(resultMsg.data.subNum)
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert('加载资源失败');
+                    }
+                });
+            }
+
+            // 科室门诊
+            getDepartmentList()
+            function getDepartmentList(){
+                var jsonParam = {
+                    hospitId: hospitalId, //医院
+                    parentCode: departmentId    //科室
+                    // parentCode: departmentId    //科室
+                };
+                $.ajax({
+                    type: 'get',
+                    dataType: "jsonp",
+                    jsonp: "callback",//服务端用于接收
+                    async: false,
+                    contentType: 'application/json',
+                    url: roadPath + '/reg/appoint/getDepartmentList',
+                    data: jsonParam,
+                    success: function (resultMsg) {
+                        var str = "";
+                        if(resultMsg.retCode == 0) {
+                            $.each(resultMsg.data.list, function (i, item) {
+                                str += '<span class="label select_label" ids="'+ item.code +'">'+ item.name +'</span>';
+                            })
+                            $(".depList").append(str);
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert('加载资源失败');
+                    }
+                });
+            }
+            var date = new Date();
+            var seperator1 = "-";
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var currentdate = year + seperator1 + month + seperator1 + strDate;
+            // // 获取医生列表
+            var jsonParamDoc = {
+                hospitId: hospitalId, // 所属医院的唯一编码
+                parentCode: departmentId,
+                deptCode: '', // 所属科室的编号
+                type:'1', //1.全部 2.排班 3.可预约
+                queryDate: currentdate,     //时间日期
+                pageSize:10
+            };
+
+            // 医生所在门诊
+            $(".depList").on("click",".select_label",function () {
+                if($(this).text() === "全部"){
+                    jsonParamDoc.deptCode = ''
+                }else {
+                    jsonParamDoc.deptCode = $(this).attr("ids")
+                }
+                getDoctorLists()
+            })
+
+            // 可选择时间
+            getTime()
+            function getTime() {
+                var myDate = new Date;
+                var year = myDate.getFullYear(); //获取当前年
+                var mon = myDate.getMonth() + 1; //获取当前月
+                var date = myDate.getDate(); //获取当前日
+                var mons = "";
+                var dates = "";
+                if (mon >= 10) {
+                    mons += mon;
+                } else {
+                    mons += "0" + mon;
+                }
+                if (date >= 10) {
+                    dates += date;
+                } else {
+                    dates += "0" + date;
+                }
+                var time = year + '-' + mons + '-' + dates
+                layui.use(['laydate', 'layer'], function () {
+                    var laydate = layui.laydate
+                        , layer = layui.layer;
+                    laydate.render({
+                        elem: '#dateTime'
+                        ,theme: '#3A86F3'
+                        ,trigger: 'click'
+                        , value: time
+                        , min: time
+                        ,max: 6 //7天后
+                        ,done: function(value, date){
+                            jsonParamDoc.queryDate = value
+                            getDoctorLists()
+                            // console.log(jsonParamDoc.queryDate)
+                            // layer.alert('你选择的日期是：' + value + '<br>获得的对象是' + JSON.stringify(date));
+                        }
+                    });
+                })
+            }
+
+
+
+            toClick()
+            function toClick() {
+                $('.label_container').on("click",".toMore",function(){
+                    $(this).parent(".label_container").addClass('readActive').siblings().removeClass("readActive")
+                })
+                $(".depList").on("click",".select_label",function(){
+                    $(this).addClass("bg_left_active").siblings().removeClass("bg_left_active");
+                })
+                $(".messagea_s li").on("click",function(){
+                    var type = $(this).text()
+                    if(type === "全部医生"){
+                        jsonParamDoc.type = '1'
+                    }else if(type === "排班医生"){
+                        jsonParamDoc.type = '2'
+                    }else if(type === "有号医生"){
+                        jsonParamDoc.type = '3'
+                    }
+                    getDoctorLists()
+                    $(this).addClass("mes_left_active").siblings().removeClass("mes_left_active");
+                })
+                //跳转医生主页详细
+                $(".toDoctor").on("click"," .doctor-card",function(){
+                    var doctorId = $(this).attr("ids")
+                    localStorage.setItem("doctorId",doctorId);
+                    window.location.href = "appDoctor.html";
+                })
+            }
+
+            function maxNum () {
+                $(".intro_d").each(function () {
+                    var maxwidth = 50;//设置最多显示的字数
+                    var text = $(this).text();
+                    if ($(this).text().length > maxwidth) {
+                        $(this).text($(this).text().replace(/\s*/g, "").substring(0, maxwidth));
+                        $(this).html($(this).html()+'...'+'<a href="###" class="more_r open-a"> 展开 <i class="iconfamily iconStyle more_r">&#xe62a;</i></a>');
+                    }
+                    $(this).on('click', '.open-a', function(){
+                        // $(this).parent().text(text);//点击“点击展开”，展开全文
+                        $(this).parent().html(text + '<br><a href="###" class="more_r close-a"><i class="iconfamily iconStyle more_r">&#xe62b;</i>收起</a>');//点击“点击展开”，展开全文
+                    })
+                    $(this).on('click', '.close-a', function(){
+                        $(this).text($(this).parent().text().replace(/\s*/g,"").substring(0, maxwidth));
+                        //如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+                        $(this).parent().html($(this).html()+'...'+'<a href="###" class="more_r open-a"> 展开 <i class="iconfamily iconStyle more_r">&#xe62a;</i></a>');
+                    })
+                    // $(this).find("a").click(function () {
+                    //     $(this).parent().text(text);//点击“点击展开”，展开全文
+                    // })
+                })
+            }
+            // 推荐医生
+            getDoctorLists()
+            function getDoctorLists(){
+               layui.layer.load();
+                $.ajax({
+                    type: 'get',
+                    dataType: "jsonp",
+                    jsonp: "callback",//服务端用于接收
+                    async: false,
+                    contentType: 'application/json',
+                    url: roadPath + '/reg/arrangment/getAppointDoctors',
+                    data: jsonParamDoc,
+                    success: function (resultMsg) {
+                        if(resultMsg.retCode == 0) {
+                            allcounts = resultMsg.data.count
+                            var html = "";
+                            if(resultMsg.data.list == undefined || resultMsg.data.list.length <= 0){
+                                html +='<div style="text-align: center;margin: 30px 0">暂无数据</div>'
+                                $("#laypage").hide()
+                                $(".toDoctor").html(html);
+                            }else if(resultMsg.data.list.length >0){
+                                pageobj.count = resultMsg.data.count;
+                                laypage.render(pageobj);
+                                $("#laypage").show()
+                                $.each(resultMsg.data.list, function (i, item) {
+                                    if(item.hospitalName == undefined || item.hospitalName == ''){
+                                        item.hospitalName = '暂无数据'
+                                    }
+                                    if(item.deptName == undefined || item.deptName == ''){
+                                        item.deptName = '暂无数据'
+                                    }
+                                    if(item.depict == undefined || item.depict == ''){
+                                        item.depict = '暂无数据'
+                                    }
+                                    html += '<div class="doctor-card layui-col-md6" ids="'+ item.id +'">' +
+                                        '<div class="docCard-box"><div class="docCard-pic">' +
+                                        '<img src="' + item.imageUrl + '" alt="">' +
+                                        '</div>' +
+                                        '<div class="docCard-info">' +
+                                        '<div class="doc-name">' +
+                                        '<span>' + item.name + '</span>' +
+                                        '<span>' + item.professional + '</span>' +
+                                        // '<span>教授</span>' +
+                                        '</div>' +
+                                        '<div class="doc-hospital"> '+ item.hospitalName+'&nbsp;'+ item.deptName +'</div>' +
+                                        '<div class="doc-shanchang">' +
+                                        '<span class="shanc">擅长：</span>' + item.depict +
+                                        '</div></div>' +
+                                        '<div class="clear"></div>' +
+                                        '</div></div>';
+                                });
+                                $(".toDoctor").html(html);
+                            }
+                            // 只展示6个医生
+                            // var dataList = resultMsg.data.list.slice(0, 6);
+                            // if(resultMsg.data.list.length<0 && resultMsg.data.list == undefined){
+                            //     console.log(111)
+                            //     html +='<div style="text-align: center;margin: 30px 0">暂无数据</div>'
+                            // }
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert('加载资源失败');
+                    }
+                });
+               layui.layer.closeAll()
+               $(".showLoading").css("opacity",'1')
+            }
+            pageobj.jump = function (obj) {
+               layui.layer.load();
+                jsonParamDoc.pageSize = obj.limit;
+                jsonParamDoc.pageNo = obj.curr;
+                $.ajax({
+                    type: 'get',
+                    dataType: "jsonp",
+                    jsonp: "callback",//服务端用于接收
+                    async: false,
+                    contentType: 'application/json',
+                    url: roadPath + '/reg/arrangment/getAppointDoctors',
+                    data: jsonParamDoc,
+                    success: function (resultMsg) {
+                        pageobj.count = resultMsg.data.count;
+                        if(resultMsg.retCode == 0) {
+                            var html = "";
+                            if(resultMsg.data.list == undefined || resultMsg.data.list.length <= 0){
+                                html +='<div style="text-align: center;margin: 30px 0">暂无数据</div>'
+                                $(".toDoctor").html(html);
+                            }else if(resultMsg.data.list.length >0){
+                                pageobj.count = resultMsg.data.count;
+                                $("#laypage").show()
+                                $.each(resultMsg.data.list, function (i, item) {
+                                    if(item.hospitalName == undefined || item.hospitalName == ''){
+                                        item.hospitalName = '暂无数据'
+                                    }
+                                    if(item.deptName == undefined || item.deptName == ''){
+                                        item.deptName = '暂无数据'
+                                    }
+                                    if(item.depict == undefined || item.depict == ''){
+                                        item.depict = '暂无数据'
+                                    }
+                                    html += '<div class="doctor-card layui-col-md6" ids="'+ item.id +'">' +
+                                        '<div class="docCard-box"><div class="docCard-pic">' +
+                                        '<img src="' + item.imageUrl + '" alt="">' +
+                                        '</div>' +
+                                        '<div class="docCard-info">' +
+                                        '<div class="doc-name">' +
+                                        '<span>' + item.name + '</span>' +
+                                        '<span>' + item.professional + '</span>' +
+                                        // '<span>教授</span>' +
+                                        '</div>' +
+                                        '<div class="doc-hospital"> '+ item.hospitalName+'&nbsp;'+ item.deptName +'</div>' +
+                                        '<div class="doc-shanchang">' +
+                                        '<span class="shanc">擅长：</span>' + item.depict +
+                                        '</div></div>' +
+                                        '<div class="clear"></div>' +
+                                        '</div></div>';
+                                });
+                                $(".toDoctor").html(html);
+                            }
+                            // 只展示6个医生
+                            // var dataList = resultMsg.data.list.slice(0, 6);
+                            // if(resultMsg.data.list.length<0 && resultMsg.data.list == undefined){
+                            //     console.log(111)
+                            //     html +='<div style="text-align: center;margin: 30px 0">暂无数据</div>'
+                            // }
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert('加载资源失败');
+                    }
+                });
+               layui.layer.closeAll()
+               $(".showLoading").css("opacity",'1')
+            };
+            laypage.render(pageobj);
+        })
+    })
+</script>
+</html>

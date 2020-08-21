@@ -1,0 +1,163 @@
+.visit_time{
+    padding-top: 20px;
+    text-align: left;
+}
+.add_patient{
+    width:260px;
+    height:85px;
+    padding: 15px;
+    background:rgba(255,255,255,1);
+    border:1px solid #E6E6E6;
+    border-radius:4px;
+    vertical-align: middle;
+    display: table-cell;
+    text-align: center;
+    margin-left: 20px;
+    cursor: pointer;
+}
+.add_patient .iconfamily{
+    font-size: 44px;
+    vertical-align: middle;
+}
+.patient_box{
+    /*width:260px;*/
+    height:115px;
+    padding: 15px;
+    background:rgba(255,255,255,1);
+    border:1px solid #F5F5F5;
+    border-radius:4px;
+    margin-left: 30px;
+    display: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+}
+.card-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+}
+.patient_box:hover{
+    border-color: #3A86F3;
+}
+.patient_box:hover .card-btn{
+    display: block;
+}
+.patient_box_top{
+    margin-bottom: 10px;
+}
+.patient_box_photo{
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #FFB800;
+    float: left;
+    margin-right: 10px;
+}
+.patient_box_info li{
+    margin-top: 5px;
+}
+.patient_box_info li .iconfamily{
+    margin-left: 10px;
+    margin-right: 15px;
+}
+.add_disease_info{
+    padding: 0 20px;
+}
+.rule_list li{
+    margin-top: 8px;
+    margin-left: 20px;
+}
+.rule_list .layui-badge-dot{
+    width: 5px;
+    height: 5px;
+    background: #ccc !important;
+    position: relative;
+    bottom: 2px;
+}
+#patientList{
+    display: none;
+}
+.patient_list{
+    padding:30px 10px 10px 40px;
+    height: 200px;
+    overflow-y: auto;
+}
+.patient_list:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.patient_list li{
+    padding: 15px;
+    width:210px;
+    height: 68px;
+    background:rgba(255,255,255,1);
+    border:1px solid #F5F5F5;
+    border-radius:4px;
+    margin-bottom: 30px;
+    float: left;
+    margin-right: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.patient_list li:hover{
+    border: 1px solid #3A86F3;
+}
+.patient_list li.patient_selected{
+    border: 1px solid #3A86F3;
+}
+.patient_list_photo{
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #FFB800;
+    float: left;
+    margin-right: 10px;
+    padding: 4px;
+    box-sizing: border-box;
+}
+.patient_list_photo.lxr-imgm{
+     background: #F0FCF9;
+ }
+.patient_list_photo.lxr-imgw{
+    background: #FDF0AB;
+}
+.patient_list_photo img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.patient_add{
+    text-align: center;
+    margin-top: 20px;
+}
+#scheduleInfo{
+    display: none;
+}
+.shili_block{
+    display: inline-block;
+    margin-top: 3px;
+}
+.shili_top{
+    border-bottom: 1px solid #FACD89;
+    color: #ccc;
+}
+.shili_bottom{
+    text-align: center;
+    color: #FACD89;
+}
+.demo-class .layui-layer-btn .layui-layer-btn0{
+    border-color: #dedede;
+    background-color: #fff;
+    color: #333;
+}
+.demo-class .layui-layer-btn .layui-layer-btn1{
+    border-color: #1E9FFF;
+    background-color: #1E9FFF;
+    color: #fff;
+}

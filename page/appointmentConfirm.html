@@ -1,0 +1,1085 @@
+<!--预约挂号医院详细 appointmentDoctor-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>预约诊疗服务平台</title>
+   <script src="../js/page/head.js"></script>
+   <link rel="stylesheet" href="../css/page/appointment.css">
+   <link rel="stylesheet" href="../css/page/appDoctor.css">
+   <link rel="stylesheet" href="../css/page/appConfirm.css">
+   <link rel="stylesheet" href="../css/page/personContacts.css">
+   <style>
+      .doctor_tag, .form-btn button, .add_patient, .patient_box,.patient_list li,.patient_list_photo,.patient_list_photo img{
+         behavior: url(../js/PIE/PIE.htc);
+         position: relative;
+      }
+   </style>
+</head>
+<body>
+<div class="layui-row bg_content container font_m main_body showLoading">
+   <div class="layui-col-md-offset2 layui-col-md8">
+      <p class="body-title c_grey">健康信息服务平台/预约挂号/预约确认</p>
+      <div class="layui-row hos_container">
+         <div class="layui-col-md3 content_left">
+            <div class="hospital_name bd_r">
+               <div>
+                  <img id="imageUrl" src="" alt="">
+               </div>
+               <div class="mar_t font_e" id="name"></div>
+               <div class="mar_t c_grey"><span id="hospitalName"></span> - <span id="deptName"></span></div>
+               <div class="mar_t">
+                  <span class="doctor_tag tagblue" id="professional"></span>
+                  <!--                            <span class="doctor_tag tagorange">教授</span>-->
+               </div>
+               <div class="visit_time">
+                  <ul class="contact_li">
+                     <li>出诊时间：<span id="czTime"></span> <img src="../img/icon_edit.png" id="timeTags" class="cursorP"></li>
+                     <li>挂号费：<span id="ghf"></span>元 <span class="b_grey">(到院付)</span></li>
+                  </ul>
+               </div>
+            </div>
+
+
+         </div>
+         <div class="layui-col-md9 content_right bd_r">
+            <div class="label_one">
+               <span class="label">选择就诊时间</span>
+            </div>
+            <div class="content_tag" id="contentTag"></div>
+            <div class="label_one">
+               <span class="label">添加就诊人</span>
+               <div style="margin-left: 29px;margin-bottom: 10px;">
+                  <div class="add_patient" id="addPatient">
+                     <i class="iconfamily icontianjia" style="color: #E6E6E6;"></i>&emsp;
+                     <span class="c_grey font_e" style="position: relative;top: 4px;">添加就诊人</span>
+                  </div>
+               </div>
+               <div class="layui-row">
+                  <div class="layui-col-md5 patient_box" id="patient"></div>
+               </div>
+               <!--                        <div class="patient_box" id="patient"></div>-->
+            </div>
+            <div class="label_one">
+               <span class="label">添加疾病信息</span>
+               <div class="layui-row layui-col-space30 add_disease_info">
+                  <div class="layui-col-md6">
+                     <textarea name="desc" class="layui-textarea" rows="5" id="jbInfo"></textarea>
+                  </div>
+                  <div class="layui-col-md6">
+                     <p class="c_grey">示例:</p>
+                     <div class="shili_block">
+                        <div class="shili_top">糖尿病20余年，</div>
+                        <div class="shili_bottom">病史</div>
+                     </div>
+                     <div class="shili_block">
+                        <div class="shili_top">半年前开始</div>
+                        <div class="shili_bottom">症状出现时间</div>
+                     </div>
+                     <div class="shili_block">
+                        <div class="shili_top">手脚像针刺般疼痛，</div>
+                        <div class="shili_bottom">症状</div>
+                     </div>
+                     <div class="shili_block">
+                        <div class="shili_top">不能睡觉，</div>
+                        <div class="shili_bottom">症状程度</div>
+                     </div>
+                     <div class="shili_block">
+                        <div class="shili_top">正在服用汉桃叶片和甲谷胺，</div>
+                        <div class="shili_bottom">正在接受的治疗</div>
+                     </div>
+                     <div class="shili_block">
+                        <div class="shili_top">疗效不明显。</div>
+                        <div class="shili_bottom">治疗效果</div>
+                     </div>
+                  </div>
+                  <div class="clear"></div>
+               </div>
+            </div>
+            <div class="label_one">
+               <span class="label">预约规则</span>
+               <ul class="rule_list j_grey">
+                  <li>
+                     <span class="layui-badge-dot layui-bg-gray"></span>
+                     停诊或更换坐诊时间将短信通知，请保持手机畅通；
+                  </li>
+                  <li>
+                     <span class="layui-badge-dot layui-bg-gray"></span>
+                     实名制预约，就诊人信息不符将无法取号；
+                  </li>
+                  <li>
+                     <span class="layui-badge-dot layui-bg-gray"></span>
+                     预约成功的短信将发送到手机：<span id="userPhone"></span>，请注意查收。
+                  </li>
+               </ul>
+            </div>
+            <div class="form-btn" style="margin-top: 50px;">
+               <button type="button" class="layui-btn layui-btn-warm" id="saveAppointment">立即预约</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!--就诊人列表-->
+<div id="patientList">
+   <ul class="patient_list"></ul>
+   <div class="form-btn">
+      <button type="button" class="layui-btn layui-btn-warm" id="patientConfirm">确认</button>
+   </div>
+   <div class="patient_add">
+      <span class="font_s blue cursorP" id="add">新增就诊人</span>
+   </div>
+</div>
+<!--排版信息-->
+<div id="scheduleInfo">
+   <div class="layui-row" style="padding:30px 40px;">
+      <table class="layui-table myTable">
+         <colgroup>
+            <col width="60">
+            <col width="100">
+            <col width="100">
+            <col width="100">
+            <col width="100">
+            <col width="100">
+            <col width="100">
+            <col width="100">
+            <col>
+         </colgroup>
+         <thead>
+         <tr>
+            <th></th>
+            <th>
+               <div>周五</div>
+               <div>12/6</div>
+            </th>
+            <th>
+               <div>周六</div>
+               <div>12/6</div>
+            </th>
+            <th>
+               <div>周日</div>
+               <div>12/6</div>
+            </th>
+            <th>
+               <div>周五</div>
+               <div>12/6</div>
+            </th>
+            <th>
+               <div>周五</div>
+               <div>12/6</div>
+            </th>
+            <th>
+               <div>周五</div>
+               <div>12/6</div>
+            </th>
+            <th>
+               <div>周五</div>
+               <div>12/6</div>
+            </th>
+         </tr>
+         </thead>
+         <tbody>
+         <tr class="morning">
+            <td class="leftTit">上午</td>
+            <td class="table-tabgray">
+               <div class="table-tab ">可预约</div>
+               <div class="table-info">截止预约</div>
+            </td>
+            <td class="table-taborg">
+               <div class="table-tab">可预约</div>
+               <div class="table-hover">
+                  <p>出诊时间：2019年12月9日上午</p>
+                  <p>挂号费：20元(到院付)</p>
+               </div>
+            </td>
+            <td></td>
+            <td class="table-taborg">
+               <div class="table-tab">可预约</div>
+               <div class="table-info">仅剩3个</div>
+               <div class="table-hover">
+                  <p>出诊时间：2019年12月9日上午</p>
+                  <p>挂号费：20元(到院付)</p>
+               </div>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+         </tr>
+         <tr class="afternoon">
+            <td class="leftTit">下午</td>
+            <td class="table-tabgray">
+               <div class="table-tab">可预约</div>
+               <div class="table-info">截止预约</div>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+         </tr>
+         <tr class="nightDiag">
+            <td class="leftTit">晚上</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+         </tr>
+         </tbody>
+      </table>
+   </div>
+</div>
+<!--新增就诊人-->
+<div id="patientAddBox" style="display: none;padding: 20px;">
+   <div class="layui-row">
+      <div class="layui-col-md7 layui-col-md-offset2">
+         <form class="layui-form" id="addform" lay-filter="addform" action="">
+            <div class="layui-form-item">
+               <label class="layui-form-label">姓名</label>
+               <div class="layui-input-block">
+                  <input type="hidden" name="id" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+                  <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+               </div>
+            </div>
+            <div class="layui-form-item">
+               <label class="layui-form-label">身份证号</label>
+               <div class="layui-input-block">
+                  <input type="text" name="sfzh" lay-verify="required" autocomplete="off" placeholder="请输入18位身份证号码" class="layui-input">
+               </div>
+            </div>
+            <div class="layui-form-item">
+               <label class="layui-form-label">性别</label>
+               <div class="layui-input-block">
+                  <select name="xb" lay-verify="required">
+                     <option value="">请选择</option>
+                     <option value="男">男</option>
+                     <option value="女">女</option>
+                  </select>
+               </div>
+            </div>
+            <div class="layui-form-item">
+               <label class="layui-form-label">联系电话</label>
+               <div class="layui-input-block">
+                  <input type="text" name="phone" lay-verify="required" autocomplete="off" placeholder="电话号码/手机号必填项" class="layui-input">
+               </div>
+            </div>
+            <!--改成联动下拉选项-->
+            <div class="layui-form-item">
+               <!--省/市/区/街道-->
+               <label class="layui-form-label">省</label>
+               <div class="layui-input-block">
+                  <select id="addressProvince" lay-filter="addressProvince" name="addressProvince" lay-verify="required" lay-search>
+                     <option value="">搜索省</option>
+                  </select>
+               </div>
+            </div>
+            <div class="layui-form-item">
+               <!--省/市/区/街道-->
+               <label class="layui-form-label">市</label>
+               <div class="layui-input-block">
+                  <select id="addressCity" lay-filter="addressCity" name="addressCity" lay-verify="required" lay-search>
+                     <option value="">搜索市</option>
+                  </select>
+               </div>
+            </div>
+            <div class="layui-form-item">
+               <!--省/市/区/街道-->
+               <label class="layui-form-label">区</label>
+               <div class="layui-input-block">
+                  <select id="addressRegion" lay-filter="addressRegion" name="addressRegion" lay-verify="required" lay-search>
+                     <option value="">搜索区</option>
+                  </select>
+               </div>
+            </div>
+            <div class="layui-form-item">
+               <!--省/市/区/街道-->
+               <label class="layui-form-label">街道</label>
+               <div class="layui-input-block">
+                  <select id="addressStreet" lay-filter="addressStreet" name="addressStreet" lay-verify="required" lay-search>
+                     <option value="">搜索街道</option>
+                  </select>
+               </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+               <label class="layui-form-label">详细地址</label>
+               <div class="layui-input-block" style="height: auto">
+                                        <textarea name="addressDetail" class="layui-textarea" rows="15" lay-verify="required"
+                                                  placeholder="请输入详细地址信息，如道路，门牌号，小区等信息。"></textarea>
+               </div>
+            </div>
+            <div class="layui-form-item">
+               <label class="layui-form-label"></label>
+               <div class="layui-input-block">
+                  <div class="my-checkbox">
+                     <div class="checkdiv checkdiv1 my-checked">
+                        <i class="iconfamily">&#xe602;</i>
+                        <span class="my-label">默认就诊人</span>
+                     </div>
+                     <div class="checkdiv checkdiv2" id="regcheck">
+                        <i class="iconfamily">&#xe600;</i>
+                        <span class="my-label">默认就诊人</span>
+                     </div>
+
+                  </div>
+               </div>
+            </div>
+            <div class="layui-form-item form-btn">
+               <button id="addBtn" lay-submit lay-filter="addBtn" type="button" class="layui-btn layui-btn-warm">保存</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script>
+   $(function () {
+      var authToken = localStorage.getItem('authToken');
+      layui.use(['layer','table','form'],  function(){
+         layui.layer.load();
+         var layer = layui.layer;
+         var table = layui.table;
+         var form = layui.form;
+         var patientIndex = '';
+         var patientId = '';//就诊人id
+         var patientName = '';
+         var selectedTime='';
+         var jbInfo = '';
+         var doctorId = localStorage.getItem('doctorId');
+         var outTime = localStorage.getItem('outTime');
+         var hospitalId = localStorage.getItem('hospitalId');
+         var departId = localStorage.getItem('departId');
+         var price = localStorage.getItem('price');
+         var visitTimes='';
+         var layerTwo = '';
+         // var times = '';
+         // if (outTime.indexOf('上午') > -1){
+         //     times=1;
+         // }else if(outTime.indexOf('下午') > -1){
+         //     times=2;
+         // }else if (outTime.indexOf('晚上') > -1){
+         //     times=3;
+         // }
+         $('#czTime').html(outTime);
+         $('#ghf').html(price);
+         getDoctorInfo();
+         function getDoctorInfo () {
+            var jsonParam = {
+               name: '', // 医生名称
+               // status: '1', // 推荐（1.推荐 2.不推荐）
+               hospitId: '', // 所属医院的唯一编码
+               deptCode: '', // 所属科室的编号
+               id: doctorId // 医生唯一标识
+            };
+            $.ajax({
+               type: 'get',
+               dataType: "jsonp",
+               jsonp: "callback",//服务端用于接收
+               async: false,
+               contentType: 'application/json',
+               url: roadPath + '/reg/appoint/getDoctorDetail',
+               data: jsonParam,
+               success: function (resultMsg) {
+                  var obj = resultMsg.data;
+                  for (var key in obj) {
+                     if (obj[key] == '' || obj[key] == undefined) {
+                        obj[key] = '暂无数据'
+                     }
+                  }
+                  if(resultMsg.retCode == 0) {
+                     $('#name').html(obj.name);
+                     $('#hospitalName').html(obj.hospitalName);
+                     $('#deptName').html(obj.deptName);
+                     $('#professional').html(obj.professional);
+                     $('#imageUrl').attr('src', obj.imageUrl);
+                  }
+               },
+               error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  alert('加载资源失败');
+               }
+            });
+            layui.layer.closeAll()
+            $(".showLoading").css("opacity",'1')
+         }
+         // 获取就诊时间点
+         getVisitTime();
+         function getVisitTime() {
+            var jsonParam = {
+               hospitalId: hospitalId, // 所属医院的唯一编码
+               departId: departId, // 所属科室的编号
+               doctorId: doctorId, // 医生唯一标识
+               subDate: outTime
+            };
+            $.ajax({
+               type: 'get',
+               dataType: "jsonp",
+               jsonp: "callback",//服务端用于接收
+               async: false,
+               contentType: 'application/json',
+               url: roadPath + '/reg/arrangment/getDoctorAppointTime',
+               data: jsonParam,
+               success: function (resultMsg) {
+                  var obj = resultMsg.data;
+                  // for (var key in obj) {
+                  //     if (obj[key] == '' || obj[key] == undefined) {
+                  //         obj[key] = '暂无数据'
+                  //     }
+                  // }
+                  if(resultMsg.retCode == 0) {
+                     var html = "";
+                     var dataList = resultMsg.data.list;
+                     $.each(dataList, function (i, item) {
+                        // levelTypeText
+                        html +='<span class="label select_label">'+item+'</span>';
+
+                     });
+                     $("#contentTag").html(html);
+                  }
+               },
+               error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  alert('加载资源失败');
+               }
+            });
+         }
+         // 获取排班信息
+         getPaiban (doctorId, hospitalId, departId);
+         function getPaiban (doctorId, hospitalId, departId) {
+            var jsonParam = {
+               doctorId: doctorId, // 医生唯一标识
+               hospitalId: hospitalId, // 医生唯一标识
+               departId: departId, // 医生唯一标识
+               // subDate:outTime
+            };
+            $.ajax({
+               type: 'get',
+               dataType: "jsonp",
+               jsonp: "callback",//服务端用于接收
+               async: false,
+               contentType: 'application/json',
+               url: roadPath + '/reg/arrangment/getDoctorAppointDate',
+               data: jsonParam,
+               success: function (resultMsg) {
+                  if(resultMsg.retCode == 0) {
+                     $('.myTable thead tr').html('');
+                     $('.myTable tbody .morning').html('');
+                     $('.myTable tbody .afternoon').html('');
+                     $('.myTable tbody .nightDiag').html('');
+                     var headth = '<th></th>';
+                     var arrs = {
+                        morning: '<td class="leftTit">上午</td>',
+                        afternoon: '<td class="leftTit">下午</td>',
+                        nightDiag: '<td class="leftTit">晚上</td>'
+                     }
+                     var dataList = resultMsg.data.list;
+                     // var
+                     $.each(dataList, function (i, item) {
+                        headth += '<th>' +
+                           '<div>' + item.subTime.substring(0, 2) + '</div>' +
+                           '<div>' + item.subTime.substring(2, item.subTime.length) + '</div>' +
+                           '</th>';
+                        for (var key in arrs) {
+                           var keyarr = ['num', 'outTime', 'price'];
+                           for (var i = 0; i < keyarr.length; i++) {
+                              if (item[key][keyarr[i]] == undefined) {
+                                 item[key][keyarr[i]] = '暂无数据';
+                              }
+                           }
+                           arrs[key] += '<td nums="' + item[key].num + '">' +
+                              '<div class="table-tab">可预约</div>' +
+                              '<div class="table-info">仅剩' + item[key].num + '个</div>' +
+                              '<div class="table-hover">' +
+                              '<p class="outTime" outTime="' + item[key].outTime + '">出诊时间：' + item[key].outTime + '</p>' +
+                              '<p class="price" price="' + item[key].price + '">挂号费：' + item[key].price + '元(到院付)</p>' +
+                              '</div></td>';
+                        }
+                     });
+                     $('.myTable thead tr').append(headth);
+                     $('.myTable tbody .morning').append(arrs.morning);
+                     $('.myTable tbody .afternoon').append(arrs.afternoon);
+                     $('.myTable tbody .nightDiag').append(arrs.nightDiag);
+                     for (var i = 0; i < 3; i++) {
+                        for (var j = 0; j < 8; j++) {
+                           var num = $('.myTable tbody tr').eq(i).children('td').eq(j).attr('nums');
+                           var ele =  $('.myTable tbody tr').eq(i).children('td').eq(j);
+                           if (num == -1) {
+                              ele.children('div').hide();
+                           } else if (num == 0) {
+                              ele.addClass('table-tabgray');
+                              ele.children('.table-info').html('截止预约');
+                           } else {
+                              ele.addClass('table-taborg');
+                              if (num < 4) {
+                                 ele.children('.table-info').show();
+                              } else {
+                                 ele.children('.table-info').hide();
+                              }
+                           }
+                        }
+                     }
+                  }
+               },
+               error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  alert('加载资源失败');
+               }
+            });
+         }
+         // 添加就诊人
+         $('#addPatient').click(function () {
+            openPatientList();
+         });
+         $('#patientList').on('click','ul li',function () {
+            $(this).addClass('patient_selected').siblings().removeClass('patient_selected');
+            patientIndex = $(this).index();
+         });
+         $('#timeTags').on('click',function () {
+            var layerOne = layer.open({
+               type: 1,
+               title: ['排班信息', 'font-weight:bold;font-size:16px'],
+               area:  ['700px', 'auto'],
+               content:$('#scheduleInfo')
+            });
+            // 预约时间表
+            $('.myTable').on('mouseover mouseout click', '.table-taborg .table-tab', function (ev) {
+               if(ev.type == "mouseover"){
+                  $(this).parent().children(".table-hover").show();
+               } else if (ev.type == "mouseout") {
+                  $(this).parent().children(".table-hover").hide();
+               } else {
+                  localStorage.setItem("outTime", $(this).next().next('.table-hover').find('.outTime').attr('outTime'));
+                  localStorage.setItem("price", $(this).next().next('.table-hover').find('.price').attr('price'));
+                  history.go(0);
+               }
+            })
+         });
+         $(".table-taborg .table-tab").hover(function () {
+            $(this).parent().children(".table-hover").show();
+         },function () {
+            $(this).parent().children(".table-hover").hide();
+         });
+         // 选择时间段
+         $('#contentTag').on('click','span',function () {
+            $(this).addClass('bg_left_active').siblings().removeClass('bg_left_active');
+            selectedTime = $('#contentTag .bg_left_active').html();
+            visitTimes = outTime.slice(0,4) + '-'+outTime.slice(5,7)+ '-' + outTime.slice(8,10)+ ' ' + selectedTime;
+         });
+         $('#patient').on('click','.edit-btn',function () {
+            openPatientList();
+         });
+         // 打开就诊人列表弹框
+         function openPatientList() {
+            // 查询就诊人列表
+            getPatientList();
+            $('#patientConfirm').click(function () {
+               layer.closeAll();
+               if($('.patient_list').children('.patient_selected').length===0){
+                  $('#patient').hide();
+                  $('#addPatient').show()
+               }else{
+                  var selectedLi = $('.patient_list li.patient_selected');
+                  patientId = selectedLi.attr('data-person');
+                  patientName = selectedLi.attr('data-personname');
+                  var patientPhone = selectedLi.attr('data-phone');
+                  var patientAddr = selectedLi.attr('data-addr');
+                  var patientSfzh = selectedLi.attr('data-sfzh');
+                  var patientXb = selectedLi.attr('data-xb');
+                  var sss='';
+                  var imgurl='';
+                  if (patientXb=='男') {
+                     sss = 'lxr-imgm';
+                     imgurl = '../img/img_sex_m.png'
+                  } else {
+                     sss = 'lxr-imgw';
+                     imgurl = '../img/img_sex_w.png'
+                  }
+                  var html = '';
+                  html += '<div class="card-btn">'+
+                     '<img class="edit-btn" src="../img/btn_edit.png" alt="">'+
+                     '</div>'+
+                     '<div class="patient_box_top">'+
+                     '<span class="patient_list_photo ' + sss + '">' +
+                     '<img src="' + imgurl + '" alt="">' +
+                     '</span>'+
+                     '<div >'+
+                     '<p>'+patientName+'</p>'+
+                     '<p class="font_s q_grey">'+patientSfzh+'</p>'+
+                     '</div>'+
+                     '<div class="clear"></div>'+
+                     '</div>'+
+                     '<ul class="patient_box_info">'+
+                     '<li>'+
+                     '<i class="iconfamily icontel blue"></i>'+
+                     '<span class="q_grey font_s">'+patientPhone+'</span>'+
+                     '</li>'+
+                     '<li>'+
+                     '<i class="iconfamily icondingwei blue"></i>'+
+                     '<span class="q_grey font_s">'+patientAddr+'</span>'+
+                     '</li>'+
+                     '</ul>';
+                  $("#patient").html(html).show();
+                  localStorage.setItem('patientPhone',patientPhone)
+                  var phone = localStorage.getItem('patientPhone');
+                  // var phone = resultMsg.data.username;
+                  phone = phone.substr(0,3)+"****"+phone.substr(7);
+                  $('#userPhone').html(phone);
+                  $('#addPatient').hide()
+               }
+            })
+         }
+         function getPatientList(){
+            var jsonParam = {
+               authToken:authToken
+            };
+            $.ajax({
+               type: 'get',
+               dataType: "jsonp",
+               jsonp: "callback",//服务端用于接收
+               async: false,
+               contentType: 'application/json',
+               url: roadPath + '/temp/medperson/getPatientList',
+               data: jsonParam,
+               success: function (resultMsg) {
+                  if(resultMsg.retCode == 0) {
+                     layer.open({
+                        type: 1,
+                        title: ['就诊人列表', 'font-weight:bold;font-size:16px'],
+                        area:  ['770px', '420px'],
+                        content:$('#patientList')
+                     });
+                     var html = "";
+                     if(!resultMsg.data){
+                        $("#patientList ul").html('<div class="b_grey" style="text-align: center">暂无就诊人,请先添加就诊人</div>');
+                     }else{
+                        var dataList = resultMsg.data;
+                        $.each(dataList, function (i, item) {
+                           item.sfzh = item.sfzh.substring(0,5) + '*********' + item.sfzh.substring(15, item.length);
+                           if (item.xb=='男') {
+                              item.xbcls = 'lxr-imgm';
+                              item.imgurl = '../img/img_sex_m.png'
+                           } else {
+                              item.xbcls = 'lxr-imgw';
+                              item.imgurl = '../img/img_sex_w.png'
+                           }
+                           if(item.addressDetail){
+                              if (item.addressDetail.length > 13) {
+                                 item.addressDetail = item.addressDetail.substring(0,13) + '...';
+                              }
+                              html +='<li data-phone="'+item.phone+'" data-person="'+item.id+'" data-status="'+item.patientSign+'" data-xb="'+item.xb+'" data-sfzh="'+item.sfzh+'" data-personname="'+item.name+'" data-addr="'+item.addressProvinceName+item.addressCityName+item.addressRegionName+item.addressStreetName+item.addressDetail+'">';
+                           }else{
+                              html += '<li data-phone="'+item.phone+'" data-person="'+item.id+'" data-status="'+item.patientSign+'" data-xb="'+item.xb+'" data-sfzh="'+item.sfzh+'" data-personname="'+item.name+'" data-addr="暂无地址信息">';
+                           }
+                           html +='<span class="patient_list_photo ' + item.xbcls + '">' +
+                              '<img src="' + item.imgurl + '" alt="">' +
+                              '</span>' +
+                              '<div>' +
+                              '<p>'+item.name+'</p>' +
+                              '<p class="font_s q_grey">'+item.sfzh+'</p>' +
+                              '</div>' +
+                              '<div class="clear"></div>' +
+                              '</li>';
+                        });
+                        $("#patientList ul").html(html);
+                        $('#patientList ul li').each(function (i, val) {
+                           var status = $(this).attr('data-status');
+                           if (status === '1') {
+                              $(this).addClass('patient_selected');
+                           }
+                        });
+                        if(patientIndex !== ''){
+                           patientIndex = patientIndex + 1;
+                           $('#patientList ul li:nth-child('+patientIndex+')').addClass('patient_selected').siblings().removeClass('patient_selected')
+                        }
+                     }
+
+
+                  }else if (resultMsg.retCode == 1004) {
+                     denglu();
+                  }
+               },
+               error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  alert('加载资源失败');
+               }
+            });
+         }
+         $('#saveAppointment').click(function () {
+            jbInfo = $('#jbInfo').val();
+            if(selectedTime === ''){
+               layer.msg('请选择就诊时间',{
+                  icon:5,
+                  time:1000
+               })
+            }else if(patientName === ''){
+               layer.msg('请选择就诊人',{
+                  icon:5,
+                  time:1000
+               })
+            }else{
+               var jsonParam = {
+                  doctorId: doctorId, // 医生唯一标识
+                  subDate: visitTimes, // 医生唯一标识
+                  medicalPersonnelId:patientId,//就诊人id
+                  medicalPersonnelName:patientName,//就诊人名字
+                  diseaseInfo: jbInfo, // 医生唯一标识
+                  authToken:authToken
+               };
+               $.ajax({
+                  type: 'get',
+                  dataType: "jsonp",
+                  jsonp: "callback",//服务端用于接收
+                  async: false,
+                  contentType: 'application/json',
+                  url: roadPath + '/reg/arrangment/saveSubscribeInfo',
+                  data: jsonParam,
+                  success: function (resultMsg) {
+                     if (resultMsg.retCode == 0) {
+                        layer.open({
+                           title:'提示',
+                           content: '您已预约成功',
+                           skin: 'demo-class',
+                           icon:1
+                           ,btnAlign: 'c'
+                           ,btn: ['返回首页','查看预约详情']
+                           ,yes: function(index, layero){
+                              window.location.href='index.html';
+                           }
+                           ,btn2: function(index, layero){
+                              window.location.href='myAppointment.html';
+                           }
+                        });
+                     }else if(resultMsg.retCode == 10000){
+                        layer.msg(resultMsg.retMsg,{
+                           time:2000,
+                           icon:5
+                        });
+                     }
+                  },
+                  error: function (XMLHttpRequest, textStatus, errorThrown) {
+                     alert('加载资源失败');
+                  }
+               });
+            }
+
+         });
+         // 新增就诊人
+         $('#add').click(function () {
+            layerTwo = layer.open({
+               type: 1,
+               title: ['新增就诊人', 'font-weight:bold;font-size:16px'],
+               area:  ['800px', 'auto'],
+               move: false,
+               content:$('#patientAddBox')
+            });
+         });
+         getShengSelect();
+         // 联动下拉省市区街道
+         form.on('select(addressProvince)', function(data){
+            getshi(data.value, '');
+         });
+         form.on('select(addressCity)', function(data){
+            getqu(data.value, '');
+         });
+         form.on('select(addressRegion)', function(data){
+            getjiedao(data.value, '');
+         });
+         // 获取省下拉列表
+         function getShengSelect () {
+            var jsonParam = {
+               id: 0 // 第一级 填 0
+            };
+            $.ajax({
+               type: 'get',
+               dataType: "jsonp",
+               jsonp: "callback",//服务端用于接收
+               async: false,
+               contentType: 'application/json',
+               url: roadPath + '/reg/area/getAreaListById',
+               data: jsonParam,
+               success: function (resultMsg) {
+                  $("#addressProvince").empty();
+                  $("#addressCity").empty();
+                  $("#addressRegion").empty();
+                  $("#addressStreet").empty();
+                  if(resultMsg.retCode == 0) {
+                     var dataList = resultMsg.data;
+                     if (dataList.length > 0) {
+                        $("#addressProvince").append('<option value="">搜索省</option>');
+                        $("#addressCity").append('<option value="">搜索市</option>');
+                        $("#addressRegion").append('<option value="">搜索区</option>');
+                        $("#addressStreet").append('<option value="">搜索街道</option>');
+                        $.each(dataList, function (i, item) {
+                           $("#addressProvince").append('<option value="' + item.id + '">' + item.areaName + '</option>');
+                        });
+                     } else {
+                        $("#addressProvince").append('<option value="">暂无数据</option>');
+                     }
+                  }
+                  layui.form.render("select");
+               },
+               error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  console.log(XMLHttpRequest);
+                  console.log(textStatus);
+                  console.log(errorThrown);
+                  alert('加载资源失败');
+               }
+            });
+         }
+         function getshi (data, data2) {
+            $.ajax({
+               type: 'get',
+               dataType: "jsonp",
+               jsonp: "callback",//服务端用于接收
+               async: false,
+               contentType: 'application/json',
+               url: roadPath + '/reg/area/getAreaListById',
+               data: {
+                  id: data
+               },
+               success: function (resultMsg) {
+                  $("#addressCity").empty();
+                  $("#addressRegion").empty();
+                  $("#addressStreet").empty();
+                  if(resultMsg.retCode == 0) {
+                     var dataList = resultMsg.data;
+                     if (dataList.length > 0) {
+                        $("#addressCity").append('<option value="">搜索市</option>');
+                        $("#addressRegion").append('<option value="">搜索区</option>');
+                        $("#addressStreet").append('<option value="">搜索街道</option>');
+                        $.each(dataList, function (i, item) {
+                           $("#addressCity").append('<option value="' + item.id + '">' + item.areaName + '</option>');
+                        });
+                     } else {
+                        $("#addressCity").append('<option value="">暂无数据</option>');
+                     }
+                  }
+                  $('#addressCity').val(data2);
+                  layui.form.render("select");
+               },
+               error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  console.log(XMLHttpRequest);
+                  console.log(textStatus);
+                  console.log(errorThrown);
+                  alert('加载资源失败');
+               }
+            });
+         }
+         function getqu (data, data2) {
+            $.ajax({
+               type: 'get',
+               dataType: "jsonp",
+               jsonp: "callback",//服务端用于接收
+               async: false,
+               contentType: 'application/json',
+               url: roadPath + '/reg/area/getAreaListById',
+               data: {
+                  id: data
+               },
+               success: function (resultMsg) {
+                  $("#addressRegion").empty();
+                  $("#addressStreet").empty();
+                  if(resultMsg.retCode == 0) {
+                     var dataList = resultMsg.data;
+                     if (dataList.length > 0) {
+                        $("#addressRegion").append('<option value="">搜索区</option>');
+                        $("#addressStreet").append('<option value="">搜索街道</option>');
+                        $.each(dataList, function (i, item) {
+                           $("#addressRegion").append('<option value="' + item.id + '">' + item.areaName + '</option>');
+                        });
+                     } else {
+                        $("#addressRegion").append('<option value="">暂无数据</option>');
+                     }
+                  }
+                  $('#addressRegion').val(data2);
+                  layui.form.render("select");
+               },
+               error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  console.log(XMLHttpRequest);
+                  console.log(textStatus);
+                  console.log(errorThrown);
+                  alert('加载资源失败');
+               }
+            });
+         }
+         function getjiedao (data, data2) {
+            $.ajax({
+               type: 'get',
+               dataType: "jsonp",
+               jsonp: "callback",//服务端用于接收
+               async: false,
+               contentType: 'application/json',
+               url: roadPath + '/reg/area/getAreaListById',
+               data: {
+                  id: data
+               },
+               success: function (resultMsg) {
+                  $("#addressStreet").empty();
+                  if(resultMsg.retCode == 0) {
+                     var dataList = resultMsg.data;
+                     if (dataList.length > 0) {
+                        $("#addressStreet").append('<option value="">搜索街道</option>');
+                        $.each(dataList, function (i, item) {
+                           $("#addressStreet").append('<option value="' + item.id + '">' + item.areaName + '</option>');
+                        });
+                     } else {
+                        $("#addressStreet").append('<option value="">暂无数据</option>');
+                     }
+                  }
+                  $('#addressStreet').val(data2);
+                  layui.form.render("select");
+               },
+               error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  console.log(XMLHttpRequest);
+                  console.log(textStatus);
+                  console.log(errorThrown);
+                  alert('加载资源失败');
+               }
+            });
+         }
+         //监听提交
+         form.on('submit(addBtn)', function(data){
+            layui.layer.load();
+            if ($('#regcheck').hasClass('my-checked')) {
+               data.field.patientSign = 1
+            } else {
+               data.field.patientSign = 0
+            }
+            // layer.msg(JSON.stringify(data.field));
+            data.field.authToken = authToken;
+            // 添加成功再执行下一步
+            // $('.lxr-listPage').show();
+            // $('.lxr-addPage').hide();
+            $.ajax({
+               type: 'get',
+               dataType: "jsonp",
+               jsonp: "callback",//服务端用于接收
+               async: false,
+               contentType: 'application/json',
+               url: roadPath + '/temp/medperson/saveOrupdatePatientBaseInfo',
+               data: data.field,
+               success: function (resultMsg) {
+                  if (resultMsg.retCode == 0) {
+                     layer.close(layerTwo);
+                     var jsonParam = {
+                        authToken:authToken
+                     };
+                     $.ajax({
+                        type: 'get',
+                        dataType: "jsonp",
+                        jsonp: "callback",//服务端用于接收
+                        async: false,
+                        contentType: 'application/json',
+                        url: roadPath + '/temp/medperson/getPatientList',
+                        data: jsonParam,
+                        success: function (resultMsg) {
+                           if(resultMsg.retCode == 0) {
+                              var html = "";
+                              if(!resultMsg.data){
+                                 $("#patientList ul").html('<div class="b_grey" style="text-align: center">暂无就诊人,请先添加就诊人</div>');
+                              }else{
+                                 var dataList = resultMsg.data;
+                                 $.each(dataList, function (i, item) {
+                                    item.sfzh = item.sfzh.substring(0,5) + '*********' + item.sfzh.substring(15, item.length);
+                                    if (item.xb=='男') {
+                                       item.xbcls = 'lxr-imgm';
+                                       item.imgurl = '../img/img_sex_m.png'
+                                    } else {
+                                       item.xbcls = 'lxr-imgw';
+                                       item.imgurl = '../img/img_sex_w.png'
+                                    }
+                                    if(item.addressDetail){
+                                       if (item.addressDetail.length > 13) {
+                                          item.addressDetail = item.addressDetail.substring(0,13) + '...';
+                                       }
+                                       html +='<li data-phone="'+item.phone+'" data-person="'+item.id+'" data-status="'+item.patientSign+'" data-xb="'+item.xb+'" data-sfzh="'+item.sfzh+'" data-personname="'+item.name+'" data-addr="'+item.addressProvinceName+item.addressCityName+item.addressRegionName+item.addressStreetName+item.addressDetail+'">';
+                                    }else{
+                                       html += '<li data-phone="'+item.phone+'" data-person="'+item.id+'" data-status="'+item.patientSign+'" data-xb="'+item.xb+'" data-sfzh="'+item.sfzh+'" data-personname="'+item.name+'" data-addr="暂无地址信息">';
+                                    }
+                                    html +='<span class="patient_list_photo ' + item.xbcls + '">' +
+                                       '<img src="' + item.imgurl + '" alt="">' +
+                                       '</span>' +
+                                       '<div>' +
+                                       '<p>'+item.name+'</p>' +
+                                       '<p class="font_s q_grey">'+item.sfzh+'</p>' +
+                                       '</div>' +
+                                       '<div class="clear"></div>' +
+                                       '</li>';
+                                 });
+                                 $("#patientList ul").html(html);
+                                 $('#patientList ul li').each(function (i, val) {
+                                    var status = $(this).attr('data-status');
+                                    if (status === '1') {
+                                       $(this).addClass('patient_selected');
+                                    }
+                                 });
+                                 if(patientIndex !== ''){
+                                    patientIndex = patientIndex + 1;
+                                    $('#patientList ul li:nth-child('+patientIndex+')').addClass('patient_selected').siblings().removeClass('patient_selected')
+                                 }
+                              }
+
+
+                           }else if (resultMsg.retCode == 1004) {
+                              denglu();
+                           }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                           alert('加载资源失败');
+                        }
+                     });
+                  }
+                  layui.form.render("select");
+               },
+               error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  console.log(XMLHttpRequest);
+                  console.log(textStatus);
+                  console.log(errorThrown);
+                  alert('加载资源失败');
+               }
+            });
+            layui.layer.closeAll()
+            $(".showLoading").css("opacity",'1')
+         });
+         $('.my-checkbox').click(function () {
+            if ($(this).children('.checkdiv').eq(0).hasClass('my-checked')) {
+               $(this).children('.checkdiv').eq(0).removeClass('my-checked');
+               $(this).children('.checkdiv').eq(1).addClass('my-checked');
+            } else {
+               $(this).children('.checkdiv').eq(1).removeClass('my-checked');
+               $(this).children('.checkdiv').eq(0).addClass('my-checked');
+            }
+         });
+         getUserInfo();
+         function getUserInfo() {
+            var jsonParam = {
+               // 无参数，通过登录的tocken
+               authToken: authToken
+            };
+            $.ajax({
+               type: 'get',
+               dataType: "jsonp",
+               jsonp: "callback",//服务端用于接收
+               async: false,
+               contentType: 'application/json',
+               url: roadPath +  '/reg/user/getUserInfo',
+               data: jsonParam,
+               success: function (resultMsg) {
+                  if (resultMsg.retCode == 0) {
+                     // var phone = localStorage.getItem('patientPhone');
+                     // // var phone = resultMsg.data.username;
+                     // phone = phone.substr(0,3)+"****"+phone.substr(7);
+                     // $('#userPhone').html(phone);
+                  }
+               },
+               error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  console.log(XMLHttpRequest);
+                  console.log(textStatus);
+                  console.log(errorThrown);
+                  alert('加载资源失败');
+               }
+            });
+         }
+      });
+   })
+</script>
+</html>

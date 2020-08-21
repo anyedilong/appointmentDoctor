@@ -1,0 +1,58 @@
+/*友情链接*/
+body {
+    background: #FFFFFF;
+}
+.link-box {
+    /*background: lightcoral;*/
+}
+.link-cord {
+    float: left;
+    width: 20%;
+    color: #999999;
+    font-size: 14px;
+    margin-bottom: 20px;
+    /*background: pink;*/
+}
+.link-cord:hover a {
+    color: #5DA2F9;
+}
+.link-cord a{
+    font-size: 14px;
+    color: #999999;
+}
+.foot-about {
+    color: #CCCCCC;
+    border-top: 1px solid #F5F5F5;
+    padding: 30px 0;
+    text-align: center;
+}
+.about-box {
+    margin-bottom: 60px;
+}
+.about-box div {
+    font-size: 14px;
+    display: inline-block;
+    margin: 5px;
+    cursor: pointer;
+}
+.about-box div:hover {
+    color: #5DA2F9;
+}
+.about-box a {
+    font-size: 14px;
+    color: #CCCCCC;
+}
+.about-box a:hover {
+    color: #5DA2F9;
+}
+.about-ul {
+    margin: 0 auto;
+}
+.about-ul li {
+    float: left;
+    cursor: pointer;
+}
+.tipdiv{
+    padding: 0 20px 20px;
+    display: none;
+}

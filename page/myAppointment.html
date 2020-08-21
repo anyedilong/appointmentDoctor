@@ -1,0 +1,93 @@
+<!--预约挂号我的预约 myAppointment-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <link rel="stylesheet" href="../css/page/index.css">
+    <link rel="stylesheet" href="../css/page/personalCenter.css">
+    <link rel="stylesheet" href="../css/page/myAppointment.css">
+    <style>
+        .hospital_tag, .form-btn button, .patient_list li{
+            behavior: url(../js/PIE/PIE.htc);
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-row bg_content container font_m main_body showLoading">
+    <div class="layui-col-md-offset2 layui-col-md8">
+        <p class="body-title c_grey">健康信息服务平台/个人中心</p>
+        <div class="layui-row hos_container">
+            <div class="layui-col-md3 content_left">
+                <div class="hospital_name bd_r personal_left">
+                    <div id="logined" style="height: auto;"></div>
+                    <div id="noLogin">
+                        <div style="height: auto;">
+                            <img src="../img/moren.png" alt="">
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <span class="hospital_tag cursorP" style="background: #FBC47D;" id="goLogin">去登录</span>
+                        </div>
+                    </div>
+                    <ul class="personal_list">
+                        <li><a href="changePhone.html">更换手机号</a></li>
+                        <li><a href="changePassword.html">修改密码</a></li>
+                        <li><a href="personContacts.html">常用联系人</a></li>
+                        <li class="personal_selected"><a href="myAppointment.html">我的预约</a></li>
+                        <li><a href="attendedDoctor.html">已关注医生</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layui-col-md9 content_right bd_r personal_right">
+                <div id="personalRight">
+                    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this" lay-id="11">全部预约</li>
+                        <li lay-id="22">未就诊</li>
+                        <li lay-id="33">已就诊</li>
+                        <li lay-id="44">已过期</li>
+                        <li lay-id="55">已取消</li>
+                        <li lay-id="66">未评价<span class="layui-badge evaNum">0</span></li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <form class="layui-form" action="">
+                                <div class="layui-form-item" id="to_place">
+                                    <div class="layui-input-block">
+                                        <select name="modules" id="xm" lay-verify="required" lay-search lay-filter="college">
+                                            <option value="">选择时间范围</option>
+                                            <option value="1">近三个月内预约</option>
+                                            <option value="2">今年内</option>
+                                            <!--<option value="3">2018年</option>-->
+                                            <!--<option value="4">2017年</option>-->
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="font_s">
+                                <ul class="app_head q_grey">
+                                    <li>
+                                        <div class="fl width_t">预约信息</div>
+                                        <div class="fl width_s">预约人</div>
+                                        <div class="fl width_s">预约时间</div>
+                                        <div class="fl width_s">预约状态</div>
+                                        <div class="clear"></div>
+                                    </li>
+                                </ul>
+                                <div id="getList"></div>
+                                <div id="getPage"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script src="../js/page/myAppointment.js"></script>
+</html>

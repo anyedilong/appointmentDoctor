@@ -1,0 +1,116 @@
+<!--预约挂号医院详细 appointmentDoctor-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预约诊疗服务平台</title>
+    <script src="../js/page/head.js"></script>
+    <link rel="stylesheet" href="../css/page/appointment.css">
+    <style>
+        .docCard-box, .docCard-pic{
+            behavior: url(../js/PIE/PIE.htc);
+            position: relative;
+        }
+        .docCard-box{
+            background: none !important;
+            border: 1px solid transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-row bg_content container font_m main_body showLoading">
+        <div class="layui-col-md-offset2 layui-col-md8">
+            <p class="body-title c_grey">健康信息服务平台/健康科普</p>
+            <div class="layui-row hos_container">
+                <div id="kepuList" class="body-card layui-row layui-col-space20">
+
+                </div>
+            </div>
+            <div id="demo7"></div>
+        </div>
+    </div>
+</body>
+<script src="../js/page/foot.js"></script>
+<script>
+    layui.use(['laypage', 'layer'], function() {
+        var laypage = layui.laypage;
+       layui.layer.load();
+    var kepuTotal='';
+    var jsonParam = {
+        startTime: '', // 起始时间
+        endTime: '', // 结束时间
+        pageNo: 1, //页数
+        pageSize:15
+    };
+        getKepuList();
+        // 查询健康科普
+        setTimeout(function () {
+            // 分页
+            laypage.render({
+                elem: 'demo7'
+                , count: parseInt(kepuTotal)
+                , limit: 15
+                , curr:1
+                , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                , jump: function (obj) {
+                    jsonParam.pageNo = obj.curr;
+                    getKepuList()
+                }
+            });
+        },1000);
+
+    function getKepuList () {
+        $.ajax({
+            type: 'get',
+            dataType: "jsonp",
+            jsonp: "callback",//服务端用于接收
+            async: false,
+            contentType: 'application/json',
+            url: roadPath + '/reg/healthEducateInfo/getHealthEducateInfoList',
+            data: jsonParam,
+            success: function (resultMsg) {
+               layui.layer.closeAll()
+               $(".showLoading").css("opacity",'1')
+                if(resultMsg.retCode == 0) {
+                    var html = "";
+                    var dataList = resultMsg.data.list;
+                    kepuTotal = resultMsg.data.count;
+                    $.each(dataList, function (i, item) {
+                        if(!item.hospitalName){
+                            item.hospitalName = '卫健委'
+                        }
+                        // levelTypeText
+                        html +='<div class="doctor-card layui-col-md4" data-ids="'+item.id+'" data-hos="'+item.hospitalId+'">' +
+                            '<div class="docCard-box">' +
+                            '<div class="docCard-pic">' +
+                            '<img src="' + item.imageUrl + '" alt="">' +
+                            '</div>' +
+                            '<div class="health-info">' +
+                            '<div class="health-tit">' +
+                            '<span>' + item.title + '</span>' +
+                            '</div>' +
+                            '<div class="health-from">' + item.hospitalName + '</div>' +
+                            '</div>' +
+                            '<div class="clear"></div>' +
+                            '</div>' +
+                            '</div>';
+
+                    });
+                    $("#kepuList").html(html);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('加载资源失败');
+            }
+        });
+    }
+        $('#kepuList').on('click','.doctor-card',function () {
+            var kepuId = $(this).attr("data-ids");
+            var hospitalId = $(this).attr("data-hos");
+            localStorage.setItem("kepuId",kepuId);
+            localStorage.setItem("hospitalId",hospitalId);
+            window.location.href = "healthScienceDetails.html";
+        });
+    })
+</script>
+</html>

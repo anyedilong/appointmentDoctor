@@ -1,0 +1,133 @@
+.hos-doc-img img {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.appDoc-form, .appDoc-form .layui-form-select, .layui-select-title, .layui-input, .layui-textarea {
+    /*width: 98%;*/
+    height: 32px;
+    line-height: 32px;
+    /*float: right;*/
+}
+.appDoc-tit {
+    color: #323231;
+    padding-left: 10px;
+    line-height: 32px;
+}
+.doctor_tag {
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+.doctor_tag.tagblue {
+    background: #4F96FC;
+}
+.doctor_tag.tagorange {
+    background: #FDA028;
+}
+.hos_num li span{
+    font-size: 12px;
+    color: #999999;
+}
+.hospital_name {
+    position: relative;
+}
+.guanzhuBtn {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    margin-left: -15px;
+}
+.guanzhuBtn img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+.layui-table td, .layui-table th, .layui-table-col-set, .layui-table-fixed-r, .layui-table-grid-down, .layui-table-header, .layui-table-page, .layui-table-tips-main, .layui-table-tool, .layui-table-total, .layui-table-view, .layui-table[lay-skin=line], .layui-table[lay-skin=row] {
+    border-color: #BCEDF7;
+}
+.layui-table tr:hover {
+    background: #F0FAFF !important;
+}
+.layui-table th {
+    border: none;
+}
+.layui-table td {
+    border: dashed #BCEDF7 1px;
+    font-size: 12px;
+}
+.layui-table td {
+    padding: 20px 0;
+    height: 44px;
+    text-align: center;
+    vertical-align: top;
+}
+.layui-table .leftTit {
+    background: #F0FAFF;
+    color: #323231;
+    font-size: 14px;
+    vertical-align: middle;
+}
+.layui-table td:nth-child(odd){
+    background: #F0FAFF;
+    color: #323231;
+    font-size: 14px;
+}
+.layui-table {
+    border: solid #BCEDF7 1px;
+}
+.layui-table th {
+    padding: 9px 0;
+    text-align: center;
+    background: #D1F3FF;
+    color: #323231;
+}
+.table-tab {
+    color: #FFFFFF;
+    display: inline-block;
+    line-height: 20px;
+    padding: 0 3px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    font-size: 12px;
+}
+.table-info {
+    font-size: 12px;
+}
+.table-taborg .table-tab {
+    background: #FDA028;
+    cursor: pointer;
+}
+.table-taborg .table-info {
+    color: #FDA028;
+}
+.table-tabgray .table-tab {
+    background: #CCCCCC;
+}
+.table-tabgray .table-info {
+    color: #CCCCCC;
+}
+.table-taborg {
+    position: relative;
+}
+.table-hover {
+    position: absolute !important;
+    background: #FFFFFF;
+    width: 180px;
+    left: 10px;
+    top: 62px;
+    line-height: 1.4em;
+    height: 2.8em;
+    text-align: left;
+    padding: 0.5em;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    display: none;
+    z-index: 100;
+    font-size: 12px;
+}
